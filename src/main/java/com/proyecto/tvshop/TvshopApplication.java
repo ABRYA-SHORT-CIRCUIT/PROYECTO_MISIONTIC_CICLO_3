@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class TvshopApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(TvshopApplication.class, args);
+		//SpringApplication.run(TvshopApplication.class, args); esta linea la comenté para que por ahora funcione la prueba
 
 
 		//Prueba Definition of done clase EMPRESA
