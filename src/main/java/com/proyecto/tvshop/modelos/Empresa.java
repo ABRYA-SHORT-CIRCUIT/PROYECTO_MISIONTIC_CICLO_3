@@ -1,7 +1,13 @@
 package com.proyecto.tvshop.modelos;
 
+import javax.persistence.*;
 
+@Entity
+@Table(name="Empresa")
 public class Empresa {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int id;
     private String nombre;
     private String direccion;
     private String telefono;
@@ -48,5 +54,16 @@ public class Empresa {
 
     public void setNIT(String NIT) {
         this.NIT = NIT;
+    }
+
+    @Override
+    public String toString() {
+        return "Empresa{" +
+                "id=" + id +
+                ", nombre='" + nombre + '\'' +
+                ", direccion='" + direccion + '\'' +
+                ", telefono='" + telefono + '\'' +
+                ", NIT='" + NIT + '\'' +
+                '}';
     }
 }

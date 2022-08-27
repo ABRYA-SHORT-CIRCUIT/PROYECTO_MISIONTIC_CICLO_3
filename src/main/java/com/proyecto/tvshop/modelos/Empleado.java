@@ -8,15 +8,16 @@ public class Empleado {
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
+    private int id;
+
     private String nombre;
     private String correo;
     private String rol; //Administrador-operativo
 
-
     //    @ManyToOne
     //    @JoinColumn(name = "empresa_id")
-    private String empresa;//
-//    private Empresa empresa;
+
+    private Empresa empresa;
 
 
 
@@ -25,7 +26,7 @@ public class Empleado {
     }
 
     //Construcctor
-    public Empleado(String nombre, String correo, String rol, String empresa) {
+    public Empleado(String nombre, String correo, String rol, Empresa empresa) {
         this.nombre = nombre;
         this.correo = correo;
         this.rol = rol;
@@ -56,5 +57,25 @@ public class Empleado {
         this.rol = rol;
     }
 
+    public Empresa getEmpresa() {
+        return empresa;
+    }
 
+    @Override
+    public String toString() {
+        return "Empleado{" +
+                "id=" + id +
+                ", nombre='" + nombre + '\'' +
+                ", correo='" + correo + '\'' +
+                ", rol='" + rol + '\'' +
+                ", empresa=" + empresa +
+                '}';
+    }
+
+    public void setEmpresa(Empresa empresa) {
+        this.empresa = empresa;
+
+
+
+    }
 }
