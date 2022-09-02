@@ -16,7 +16,8 @@ public class Empresa {
     public Empresa() {
     }
 
-    public Empresa(String nombre, String direccion, String telefono, String NIT) {
+    public Empresa(int id, String nombre, String direccion, String telefono, String NIT) {
+        this.id = id;
         this.nombre = nombre;
         this.direccion = direccion;
         this.telefono = telefono;
@@ -30,6 +31,14 @@ public class Empresa {
     public void setNombre(String nombre) {
 
         this.nombre = nombre;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getDireccion() {

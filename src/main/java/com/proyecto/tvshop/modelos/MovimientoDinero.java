@@ -12,15 +12,19 @@ public class MovimientoDinero {
     private String concepto;
     @ManyToOne
     @JoinColumn(name = "empleado_id")
-    private Empleado usuario;
+    private Usuario usuario;
+
+    private Empresa empresa;
 
     public MovimientoDinero() {
     }
 
-    public MovimientoDinero(long monto, String concepto, Empleado empleado) {
+    public MovimientoDinero(int id, long monto, String concepto, Usuario usuario) {
+        this.id = id;
         this.monto = monto;
         this.concepto = concepto;
-        this.usuario = empleado;
+        this.usuario = usuario;
+        this.empresa = usuario.getEmpresa();
     }
 
     public int getId() {
@@ -47,12 +51,20 @@ public class MovimientoDinero {
         this.concepto = concepto;
     }
 
-    public Empleado getUsuario() {
+    public Usuario getUsuario() {
         return usuario;
     }
 
-    public void setUsuario(Empleado empleado) {
-        this.usuario = empleado;
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
+    public Empresa getEmpresa() {
+        return empresa;
+    }
+
+    public void setEmpresa(Empresa empresa) {
+        this.empresa = empresa;
     }
 
     @Override

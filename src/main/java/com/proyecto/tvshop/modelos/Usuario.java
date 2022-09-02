@@ -3,11 +3,11 @@ package com.proyecto.tvshop.modelos;
 import javax.persistence.*;
 
 @Entity
-@Table(name="Empleados")
-public class Empleado {
+@Table(name = "Usuarios")
+public class Usuario {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     private String nombre;
@@ -20,17 +20,24 @@ public class Empleado {
     private Empresa empresa;
 
 
-
     //Construcctor
-    public Empleado() {
+    public Usuario() {
     }
 
     //Construcctor
-    public Empleado(String nombre, String correo, String rol, Empresa empresa) {
+
+
+    public Usuario(int id, String nombre, String correo, String rol, Empresa empresa) {
+        this.id = id;
         this.nombre = nombre;
         this.correo = correo;
-        this.rol = rol;
         this.empresa = empresa;
+
+        if (rol.equalsIgnoreCase("administrativo") || rol.equalsIgnoreCase("operativo")) {
+            this.rol = rol;
+        }else{
+            throw new RuntimeException("El rol digitado no es permitido");
+        }
     }
 
     public String getNombre() {
@@ -54,11 +61,27 @@ public class Empleado {
     }
 
     public void setRol(String rol) {
-        this.rol = rol;
+        if (rol.equals("administrativo") || rol.equals("operativo")) {
+            this.rol = rol;
+        }else{
+            throw new RuntimeException("El rol digitado no es permitido");
+        }
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public Empresa getEmpresa() {
         return empresa;
+    }
+
+    public void setEmpresa(Empresa empresa) {
+        this.empresa = empresa;
     }
 
     @Override
@@ -70,12 +93,5 @@ public class Empleado {
                 ", rol='" + rol + '\'' +
                 ", empresa=" + empresa +
                 '}';
-    }
-
-    public void setEmpresa(Empresa empresa) {
-        this.empresa = empresa;
-
-
-
     }
 }
