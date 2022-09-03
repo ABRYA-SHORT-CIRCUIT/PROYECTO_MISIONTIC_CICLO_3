@@ -75,7 +75,7 @@ public class EmpresaServices {
             empresaEditada.setNombre(empresa.getNombre());
             empresaEditada.setDireccion(empresa.getDireccion());
             empresaEditada.setTelefono(empresa.getTelefono());
-            empresaEditada.setNIT(empresa.getNIT());
+            empresaEditada.setNit(empresa.getNit());
 
             return empresaEditada;
 

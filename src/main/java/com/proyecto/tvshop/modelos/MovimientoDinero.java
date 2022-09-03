@@ -3,7 +3,7 @@ package com.proyecto.tvshop.modelos;
 import javax.persistence.*;
 
 @Entity
-@Table(name="Movimientos")
+@Table(name = "Movimientos")
 public class MovimientoDinero {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -14,6 +14,8 @@ public class MovimientoDinero {
     @JoinColumn(name = "empleado_id")
     private Usuario usuario;
 
+    @ManyToOne
+    @JoinColumn(name = "empresa_id")
     private Empresa empresa;
 
     public MovimientoDinero() {

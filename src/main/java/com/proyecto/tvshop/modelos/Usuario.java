@@ -14,9 +14,8 @@ public class Usuario {
     private String correo;
     private String rol; //Administrador-operativo
 
-    //    @ManyToOne
-    //    @JoinColumn(name = "empresa_id")
-
+    @ManyToOne
+    @JoinColumn(name = "empresa_id")
     private Empresa empresa;
 
 
@@ -35,7 +34,7 @@ public class Usuario {
 
         if (rol.equalsIgnoreCase("administrativo") || rol.equalsIgnoreCase("operativo")) {
             this.rol = rol;
-        }else{
+        } else {
             throw new RuntimeException("El rol digitado no es permitido");
         }
     }
@@ -63,7 +62,7 @@ public class Usuario {
     public void setRol(String rol) {
         if (rol.equals("administrativo") || rol.equals("operativo")) {
             this.rol = rol;
-        }else{
+        } else {
             throw new RuntimeException("El rol digitado no es permitido");
         }
     }

@@ -11,17 +11,17 @@ public class Empresa {
     private String nombre;
     private String direccion;
     private String telefono;
-    private String NIT;
+    private String nit;
 
     public Empresa() {
     }
 
-    public Empresa(int id, String nombre, String direccion, String telefono, String NIT) {
+    public Empresa(int id, String nombre, String direccion, String telefono, String nit) {
         this.id = id;
         this.nombre = nombre;
         this.direccion = direccion;
         this.telefono = telefono;
-        this.NIT = NIT;
+        this.nit = nit;
     }
 
     public String getNombre() {
@@ -57,12 +57,12 @@ public class Empresa {
         this.telefono = telefono;
     }
 
-    public String getNIT() {
-        return NIT;
+    public String getNit() {
+        return nit;
     }
 
-    public void setNIT(String NIT) {
-        this.NIT = NIT;
+    public void setNit(String nit) {
+        this.nit = nit;
     }
 
     @Override
@@ -72,7 +72,7 @@ public class Empresa {
                 ", nombre='" + nombre + '\'' +
                 ", direccion='" + direccion + '\'' +
                 ", telefono='" + telefono + '\'' +
-                ", NIT='" + NIT + '\'' +
+                ", NIT='" + nit + '\'' +
                 '}';
     }
 }
