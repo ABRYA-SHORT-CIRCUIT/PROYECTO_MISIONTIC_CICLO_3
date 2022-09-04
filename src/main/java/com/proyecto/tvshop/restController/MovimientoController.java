@@ -13,7 +13,7 @@ public class MovimientoController {
     @Autowired
     MovimientoServicio movimientoServicio;
 
-    //consultar movimiento
+    //consultar todos los movimientos
     @GetMapping("/enterprises/{id}/movements")
     public List<MovimientoDinero> consultarMovimientos(){
         return movimientoServicio.consultarMovimientos();
