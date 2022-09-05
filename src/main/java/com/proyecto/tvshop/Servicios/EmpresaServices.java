@@ -1,19 +1,32 @@
 package com.proyecto.tvshop.Servicios;
+import com.proyecto.tvshop.Repositorio.EmpresaRepositorio;
 import com.proyecto.tvshop.modelos.Empresa;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+
 import java.util.ArrayList;
 import java.util.List;
 
+@Service
 public class EmpresaServices {
 
-    public static List<Empresa> todasEmpresas = new ArrayList<>();
+    @Autowired
+    EmpresaRepositorio empresaRepositorio;
+
+    public List<Empresa> todasEmpresas = new ArrayList<>();
 
     //El sistema permite consultar todas las empresas
-    public static List<Empresa> consultarTodasempresas() {
+    public List<Empresa> consultarTodasempresas() {
+        //List<Empresa> todasEmpresas = new ArrayList<>();
+        empresaRepositorio.findAll().forEach(empresa -> todasEmpresas.add(empresa));
         return todasEmpresas;
     }
 
     //El sistema permite consultar una sola empresa
-    public static Empresa consultarEmpresa(Integer id_empresa) {
+    public Empresa consultarEmpresa(Integer id_empresa) {
+
+
 
 //        int empresaBuscada = 0;
 //
@@ -44,7 +57,7 @@ public class EmpresaServices {
 //        return nuevaEmpresa;
 //    }
 
-    public static Empresa crearEmpresa(Empresa nuevaEmpresa) {
+    public Empresa crearEmpresa(Empresa nuevaEmpresa) {
         todasEmpresas.add(nuevaEmpresa);
         return nuevaEmpresa;
     }
@@ -64,8 +77,8 @@ public class EmpresaServices {
 //        return empresaEditada;
 //    }
 
-    public static Empresa editarEmpresa(Empresa empresa) {
-    //Busca el usuario en la lista por el id, metelo en usuarioEditado para setearle los valores
+    public Empresa editarEmpresa(Empresa empresa) {
+        //Busca el usuario en la lista por el id, metelo en usuarioEditado para setearle los valores
         Empresa empresaEditada = consultarEmpresa(empresa.getId());
 
         empresaEditada.setNombre(empresa.getNombre());
@@ -78,7 +91,7 @@ public class EmpresaServices {
     }
 
     //El sistema permite eliminar una empresa
-    public static String eliminarEmpresa(Integer id) {
+    public String eliminarEmpresa(Integer id) {
 
         //Buscamos la empresa a eliminar para tener la posicion en la lista
         Empresa empresaEliminada = consultarEmpresa(id);
@@ -92,5 +105,6 @@ public class EmpresaServices {
         }
         return "La empresa con id " + id + "no puede ser eliminada, porque no existe";
     }
-}
 
+
+}

@@ -10,23 +10,23 @@ import java.util.List;
 @RestController
 public class UsuarioController {
 
-      @Autowired
-      UsuarioServices usuarioServices;
+       @Autowired
+       UsuarioServices usuarioServices;
 
     @GetMapping("/users")
     public List<Usuario> consultarTodosUsuarios() {
 
-        return UsuarioServices.consultarTodosUsuarios();
+        return usuarioServices.consultarTodosUsuarios();
     }
 
     @PostMapping("/users")
     public Usuario crearUsuario(@RequestBody Usuario usuarioNuevo){
-        return UsuarioServices.crearUsuario(usuarioNuevo);
+        return usuarioServices.crearUsuario(usuarioNuevo);
     }
 
     @GetMapping("/user/{id}")
     public Usuario consultarUsuario(@PathVariable("id") Integer id_usuario){
-        return UsuarioServices.consultarUsuario(id_usuario);
+        return usuarioServices.consultarUsuario(id_usuario);
     }
 
     @PatchMapping("/user/{id}")
@@ -38,6 +38,8 @@ public class UsuarioController {
     @DeleteMapping("/user/{id}")
     public String eliminarUsuario(@PathVariable("id") Integer id){
 
-        return UsuarioServices.eliminarUsuario(id);
+        return usuarioServices.eliminarUsuario(id);
     }
+
+
 }

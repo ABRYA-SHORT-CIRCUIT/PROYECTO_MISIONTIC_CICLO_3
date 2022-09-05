@@ -1,4 +1,5 @@
 package com.proyecto.tvshop.Servicios;
+
 import com.proyecto.tvshop.Repositorio.MovimientoRepositorio;
 import com.proyecto.tvshop.modelos.MovimientoDinero;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +10,7 @@ import java.util.List;
 
 
 @Service
-public class MovimientoServicio {
+public class MovimientoServices {
 
     @Autowired
     MovimientoRepositorio movimientoRepositorio;
@@ -23,7 +24,7 @@ public class MovimientoServicio {
     }
 
     //consultar movimiento por Id
-    public MovimientoDinero MovimientoId(Integer id) {
+    public MovimientoDinero consultarMovimientoId(Integer id) {
         return movimientoRepositorio.findById(id).get();
     }
 

@@ -1,6 +1,7 @@
 package com.proyecto.tvshop.restController;
 
-import com.proyecto.tvshop.Servicios.MovimientoServicio;
+
+import com.proyecto.tvshop.Servicios.MovimientoServices;
 import com.proyecto.tvshop.modelos.MovimientoDinero;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -11,7 +12,7 @@ import java.util.List;
 public class MovimientoController {
 
     @Autowired
-    MovimientoServicio movimientoServicio;
+    MovimientoServices movimientoServicio;
 
     //consultar todos los movimientos
     @GetMapping("/enterprises/{id}/movements")
@@ -20,9 +21,9 @@ public class MovimientoController {
     }
 
     //consultar movimiento por id
-    @GetMapping("enterprises/{id}/movimientos/{id}")
+    @GetMapping("enterprises/{id}/movimientos")
     public MovimientoDinero movimientoId(@PathVariable("id") Integer id){
-        return movimientoServicio.MovimientoId(id);
+        return movimientoServicio.consultarMovimientoId(id);
     }
 
     //guardar movimiento
@@ -32,9 +33,9 @@ public class MovimientoController {
     }
 
     //actualizar movimiento
-    @PatchMapping("/enterprises/{id}/movements/{id}")
+    @PatchMapping("/enterprises/{id}/movements")
     public MovimientoDinero updateMovementId(@PathVariable("id") Integer id, @RequestBody MovimientoDinero movement){
-        MovimientoDinero movi=movimientoServicio.MovimientoId(id);
+        MovimientoDinero movi=movimientoServicio.consultarMovimientoId(id);
         movi.setConcepto(movement.getConcepto());
         movi.setMonto(movement.getMonto());
         movi.setUsuario(movement.getUsuario());
@@ -43,7 +44,7 @@ public class MovimientoController {
 
     //Eliminar movimiento
 
-    @DeleteMapping("/enterprises/{id}/movements/{id}")
+    @DeleteMapping("/enterprises/{id}/movements")
     public String deleteMovement(@PathVariable("id") Integer id){
         boolean response= movimientoServicio.borrarMovimiento(id);
         if (response == true){
@@ -54,6 +55,4 @@ public class MovimientoController {
 
 
 }
-
-
 

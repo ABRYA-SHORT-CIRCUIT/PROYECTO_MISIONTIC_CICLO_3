@@ -9,15 +9,15 @@ import java.util.List;
     @Service
     public class UsuarioServices {
 
-        public static List<Usuario> todosUsuarios = new ArrayList<>();
+        public  List<Usuario> todosUsuarios = new ArrayList<>();
 
         //El sistema permite consultar todos los usuarios
-        public static List<Usuario> consultarTodosUsuarios() {
+        public  List<Usuario> consultarTodosUsuarios() {
             return todosUsuarios;
         }
 
         //El sistema permite consultar un solo usuario
-        public static Usuario consultarUsuario(Integer id_usuario) {
+        public Usuario consultarUsuario(Integer id_usuario) {
 
             for (int i = 0; i < todosUsuarios.size(); i++) {
                 if (todosUsuarios.get(i).getId() == id_usuario) {
@@ -35,7 +35,7 @@ import java.util.List;
 //
 //        return nuevoUsuario;
 //    }
-        public static Usuario crearUsuario(Usuario usuarioNuevo) {
+        public  Usuario crearUsuario(Usuario usuarioNuevo) {
             todosUsuarios.add(usuarioNuevo);
 
             return usuarioNuevo;
@@ -58,7 +58,7 @@ import java.util.List;
 //        return usuarioEditado;
 //    }
 
-        public static Usuario editarUsuario(Usuario usuario) {
+        public  Usuario editarUsuario(Usuario usuario) {
 //Busca el usuario en la lista por el id, metelo en usuarioEditado para setearle los valores
             Usuario usuarioEditado = consultarUsuario(usuario.getId());
 
@@ -74,7 +74,7 @@ import java.util.List;
         }
 
         //El sistema permite eliminar un usuario
-        public static String eliminarUsuario(Integer id) {
+        public  String eliminarUsuario(Integer id) {
 
             //Buscamos la empresa a eliminar para tener la posicion en la lista
             Usuario usuarioEliminado = consultarUsuario(id);

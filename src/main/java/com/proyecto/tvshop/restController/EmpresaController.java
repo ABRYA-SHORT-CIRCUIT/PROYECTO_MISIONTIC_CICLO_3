@@ -1,5 +1,6 @@
 package com.proyecto.tvshop.restController;
 
+
 import com.proyecto.tvshop.Servicios.EmpresaServices;
 import com.proyecto.tvshop.modelos.Empresa;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,27 +16,27 @@ public class EmpresaController {
 
     @GetMapping("/enterprises")
     public List<Empresa> consultarTodasempresas(){
-        return EmpresaServices.consultarTodasempresas();
+        return empresaServices.consultarTodasempresas();
     }
 
     @PostMapping("/enterprises")
     public Empresa crearEmpresa(@RequestBody Empresa empresaNueva){
-        return EmpresaServices.crearEmpresa(empresaNueva);
+        return empresaServices.crearEmpresa(empresaNueva);
     }
 
     @GetMapping("/enterprises/{id}")
     public Empresa consultarEmpresa(@PathVariable("id") Integer id_empresa){
-        return EmpresaServices.consultarEmpresa(id_empresa);
+        return empresaServices.consultarEmpresa(id_empresa);
     }
 
     @PatchMapping("/enterprises/{id}")
     public Empresa actualizarEmpresa(@RequestBody Empresa empresa){
-        return EmpresaServices.editarEmpresa(empresa);
+        return empresaServices.editarEmpresa(empresa);
     }
 
     @DeleteMapping("/enterprises/{id}")
     public String eliminarEmpresa(@PathVariable("id") Integer idEmpresa){
-        return EmpresaServices.eliminarEmpresa(idEmpresa);
+        return empresaServices.eliminarEmpresa(idEmpresa);
     }
 
 }
