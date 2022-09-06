@@ -32,12 +32,7 @@ public class EmpresaService {
             empresaBuscada= -1;
         }
         return todasEmpresas.get(empresaBuscada);
-        for (int i = 0; i < todasEmpresas.size(); i++) {
-            if (todasEmpresas.get(i).getId() == id_empresa) {
-                return todasEmpresas.get(i);
-            }
-        }
-        return null;
+        
     }
     //crea una empresa
     public Empresa crearEmpresa(Integer id, String nombre, String direccion, String telefono, String NIT) {
