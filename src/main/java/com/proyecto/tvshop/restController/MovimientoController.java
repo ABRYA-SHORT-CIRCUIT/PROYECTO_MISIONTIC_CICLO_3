@@ -12,7 +12,7 @@ import java.util.List;
 public class MovimientoController {
 
     @Autowired
-    MovimientoService movimientoServicio;
+    private MovimientoService movimientoServicio;
 
     //consultar todos los movimientos
     @GetMapping("/enterprises/{id}/movements")
@@ -36,9 +36,11 @@ public class MovimientoController {
     @PatchMapping("/enterprises/{id}/movements")
     public MovimientoDinero updateMovementId(@PathVariable("id") Integer id, @RequestBody MovimientoDinero movement){
         MovimientoDinero movi=movimientoServicio.consultarMovimientoId(id);
+
         movi.setConcepto(movement.getConcepto());
         movi.setMonto(movement.getMonto());
         movi.setUsuario(movement.getUsuario());
+
         return movimientoServicio.guardarMovimiento(movi);
     }
 

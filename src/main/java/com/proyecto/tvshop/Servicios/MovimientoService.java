@@ -12,7 +12,7 @@ import java.util.List;
 public class MovimientoService {
 
     @Autowired
-    MovimientoRepositorio movimientoRepositorio;
+    private MovimientoRepositorio movimientoRepositorio;
 
 
     //consultar todos los movimientos
