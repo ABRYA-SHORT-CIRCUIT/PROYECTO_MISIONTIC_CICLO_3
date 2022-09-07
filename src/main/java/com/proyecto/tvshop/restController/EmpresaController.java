@@ -15,33 +15,31 @@ public class EmpresaController {
     private EmpresaService empresaService;
 
     @GetMapping("/enterprises")
-    public List<Empresa> consultarTodasempresas(){
-
+    public List<Empresa> showAllEnterprises(){
         return empresaService.listarEmpresas();
     }
 
     @PostMapping("/enterprises")
-    public Empresa crearEmpresa(@RequestBody Empresa empresaNueva){
-        return empresaService.crearEmpresa(empresaNueva);
+    public Empresa addEnterprise(@RequestBody Empresa newEnterprise){
+        return empresaService.crearEmpresa(newEnterprise);
     }
 
     @GetMapping("/enterprises/{id}")
-    public Optional<Empresa> consultarEmpresa(@PathVariable("id") Integer id_empresa){
-        return empresaService.consultarEmpresa(id_empresa);
+    public Optional<Empresa> showEnterprise(@PathVariable("id") Integer idEnterprise){
+        return empresaService.consultarEmpresa(idEnterprise);
     }
 
     @PatchMapping("/enterprises/{id}")
-    public Empresa actualizarEmpresa(@RequestBody Empresa empresa){
-        return empresaService.crearEmpresa(empresa);
+    public Empresa updateEnterprise(@RequestBody Empresa editedEnterprise){
+        return empresaService.crearEmpresa(editedEnterprise);
     }
 
     @DeleteMapping("/enterprises/{id}")
-    public String eliminarEmpresa(@PathVariable("id") Integer idEmpresa){
-        boolean response = empresaService.eliminarEmpresa(idEmpresa);
-        if(response) {
-            return "El usuario fue eliminado correctamente";
+    public String deleteEnterprise(@PathVariable("id") Integer idEnterprise){
+        if(empresaService.eliminarEmpresa(idEnterprise)) {
+            return "La empresa fue eliminada correctamente";
         }
-        return "El movimiento NO fue eliminado";
+        return "La empresa no fue eliminada";
     }
 
 }
