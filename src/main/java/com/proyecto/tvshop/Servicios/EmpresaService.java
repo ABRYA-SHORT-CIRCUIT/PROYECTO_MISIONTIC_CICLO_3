@@ -21,11 +21,12 @@ public class EmpresaService {
     }
 
     //consulta una sola empresa
-    public Optional<Empresa> consultarEmpresa(Integer id_empresa) {
-        return empresaRepositorio.findById(id_empresa);
+    //acá faltaba .get() y quitar el optional
+    public Empresa consultarEmpresa(Integer id_empresa) {
+        return empresaRepositorio.findById(id_empresa).get();
     }
 
-    //crea una empresa
+    //crea una empresa  
     public Empresa crearEmpresa(Empresa empresa) {
         return empresaRepositorio.save(empresa);
     }
@@ -39,9 +40,9 @@ public class EmpresaService {
     public boolean eliminarEmpresa(Integer id) {
         empresaRepositorio.deleteById(id);
         if(this.empresaRepositorio.findById(id).isPresent()){
-            return false;
+            return false; //no se eliminó la empresa
         }
-        return true;
+        return true; //se elimino la empresa
     }
 
 }
