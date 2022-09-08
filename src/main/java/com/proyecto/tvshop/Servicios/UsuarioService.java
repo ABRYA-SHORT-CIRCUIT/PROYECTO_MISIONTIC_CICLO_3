@@ -20,23 +20,10 @@ public class UsuarioService {
         return usuariorepo.save(user);
     }
 
-//    public Usuario crearUsuario(Usuario usuarioNuevo) {
-//        usuariorepo.add(usuarioNuevo);
-//
-//        return usuarioNuevo;
-//
-//    }
-
     //El sistema permite consultar un solo usuario
     public Optional<Usuario> consultarUsuario(Integer id){
         return usuariorepo.findById(id);
     }
-
-
-    //Hace lo mismo que crear, asi que se deja uno solo
-//    public Usuario editarUsuario(Usuario user) {
-//        return usuariorepo.save(user);
-//    }
 
     //El sistema permite consultar todos los usuarios
     public List<Usuario> listarUsuarios() {

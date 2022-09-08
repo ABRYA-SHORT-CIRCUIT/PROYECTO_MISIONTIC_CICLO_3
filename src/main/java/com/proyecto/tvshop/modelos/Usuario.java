@@ -7,12 +7,12 @@ import javax.persistence.*;
 public class Usuario {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
     private String nombre;
     private String correo;
-    private String rol; //Administrador-operativo
+    private String rol; //administrativo-operativo
 
     @ManyToOne
     @JoinColumn(name = "empresa_id")
@@ -35,7 +35,7 @@ public class Usuario {
         if (rol.equalsIgnoreCase("administrativo") || rol.equalsIgnoreCase("operativo")) {
             this.rol = rol;
         } else {
-            throw new RuntimeException("El rol digitado no es permitido");
+            throw new RuntimeException("El rol digitado no es válido");
         }
     }
 
