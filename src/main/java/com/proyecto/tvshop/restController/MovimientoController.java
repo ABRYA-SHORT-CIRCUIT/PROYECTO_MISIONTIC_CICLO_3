@@ -14,46 +14,42 @@ public class MovimientoController {
     @Autowired
     private MovimientoService movimientoServicio;
 
-    //consultar todos los movimientos
+    //Consultar todos los movimientos según la empresa
     @GetMapping("/enterprises/{id}/movements")
-    public List<MovimientoDinero> consultarMovimientos(){
-        return movimientoServicio.consultarMovimientos();
+    public List<MovimientoDinero> consultarMovimientos(@PathVariable("id") Integer id){
+        return movimientoServicio.consultarMovimientos(id);
     }
 
-    //consultar movimiento por id
-    @GetMapping("enterprises/{id}/movimientos")
-    public MovimientoDinero movimientoId(@PathVariable("id") Integer id){
-        return movimientoServicio.consultarMovimientoId(id);
+    //Consultar un movimiento por id según la empresa
+    @GetMapping("enterprises/{idE}/movements/{idM}")
+    public MovimientoDinero transaction(@PathVariable("idM") Integer idM){
+        return movimientoServicio.consultarMovimientoId(idM);
     }
 
-    //guardar movimiento
+    //Guardar movimiento nuevo
     @PostMapping("/enterprises/{id}/movements")
     public MovimientoDinero SaveMovements(@RequestBody MovimientoDinero movimiento) {
         return movimientoServicio.guardarMovimiento(movimiento);
     }
 
-    //actualizar movimiento
-    @PatchMapping("/enterprises/{id}/movements")
-    public MovimientoDinero updateMovementId(@PathVariable("id") Integer id, @RequestBody MovimientoDinero movement){
-        MovimientoDinero movi=movimientoServicio.consultarMovimientoId(id);
+    //Actualizar movimiento, solo para monto y concepto de la transacción
+    @PatchMapping("/enterprises/{idE}/movements/{idM}")
+    public MovimientoDinero updateMovementId(@PathVariable("idM") Integer id, @RequestBody MovimientoDinero editedMov){
+        MovimientoDinero actualMov = movimientoServicio.consultarMovimientoId(id);
 
-        movi.setConcepto(movement.getConcepto());
-        movi.setMonto(movement.getMonto());
-        movi.setUsuario(movement.getUsuario());
-
-        return movimientoServicio.guardarMovimiento(movi);
+        if(movimientoServicio.actualizarMovimiento(id, editedMov) == 2) {
+            return editedMov;
+        } else {
+            return actualMov;
+        }
     }
 
     //Eliminar movimiento
-
-    @DeleteMapping("/enterprises/{id}/movements")
-    public String deleteMovement(@PathVariable("id") Integer id){
-        boolean response= movimientoServicio.borrarMovimiento(id);
-        if (response == true){
+    @DeleteMapping("/enterprises/{idE}/movements/{idM}")
+    public String deleteMovement(@PathVariable("idM") Integer id) {
+        if (movimientoServicio.borrarMovimiento(id)){
             return "El movimiento fue eliminado correctamente";
         }
         return "El movimiento NO fue eliminado";
     }
-
-
 }
