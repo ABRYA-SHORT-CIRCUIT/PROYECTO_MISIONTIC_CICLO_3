@@ -25,7 +25,7 @@ public class UsuarioController {
     }
 
     @GetMapping("/user/{id}")
-    public Optional<Usuario> consultarUsuario(@PathVariable("id") Integer id_usuario){
+    public Usuario consultarUsuario(@PathVariable("id") Integer id_usuario){
         return usuarioService.consultarUsuario(id_usuario);
     }
 

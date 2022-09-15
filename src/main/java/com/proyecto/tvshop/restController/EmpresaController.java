@@ -25,7 +25,7 @@ public class EmpresaController {
     }
 
     @GetMapping("/enterprises/{id}")
-    public Optional<Empresa> showEnterprise(@PathVariable("id") Integer idEnterprise){
+    public Empresa showEnterprise(@PathVariable("id") Integer idEnterprise){
         return empresaService.consultarEmpresa(idEnterprise);
     }
 
