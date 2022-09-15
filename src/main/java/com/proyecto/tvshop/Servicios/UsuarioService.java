@@ -21,8 +21,8 @@ public class UsuarioService {
     }
 
     //El sistema permite consultar un solo usuario
-    public Optional<Usuario> consultarUsuario(Integer id){
-        return usuariorepo.findById(id);
+    public Usuario consultarUsuario(Integer id){
+        return usuariorepo.findById(id).get();
     }
 
     //El sistema permite consultar todos los usuarios

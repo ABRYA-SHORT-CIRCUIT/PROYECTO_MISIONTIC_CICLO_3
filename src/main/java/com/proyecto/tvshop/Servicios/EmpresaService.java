@@ -15,23 +15,18 @@ public class EmpresaService {
     private EmpresaRepositorio empresaRepositorio;
 
 
-    // pide todas las empresas
+    //Consulta todas las empresas
     public List<Empresa> listarEmpresas(){
         return empresaRepositorio.findAll();
     }
 
-    //consulta una sola empresa
-    public Optional<Empresa> consultarEmpresa(Integer id_empresa) {
-        return empresaRepositorio.findById(id_empresa);
+    //Consulta una sola empresa
+    public Empresa consultarEmpresa(Integer id_empresa) {
+        return empresaRepositorio.findById(id_empresa).get();
     }
 
-    //crea una empresa
+    //Crea o actualiza una empresa
     public Empresa crearEmpresa(Empresa empresa) {
-        return empresaRepositorio.save(empresa);
-    }
-
-    //edita una empresa
-    public Empresa editarEmpresa(Empresa empresa){
         return empresaRepositorio.save(empresa);
     }
 
