@@ -16,7 +16,8 @@ public class EmpresaController {
     private EmpresaService empresaService;
 
     @GetMapping("/enterprises")
-    public List<Empresa> showAllEnterprises(){
+    public List<Empresa> showAllEnterprises()
+    {
         return empresaService.listarEmpresas();
     }
 

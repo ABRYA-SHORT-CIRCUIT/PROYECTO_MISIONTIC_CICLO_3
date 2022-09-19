@@ -24,6 +24,7 @@ public class MovimientoDinero {
     private LocalDate movCreated;  //Fecha de creación del movimiento
 
     private LocalDate movUpdated;   //Fecha de actualización del movimiento
+
     public MovimientoDinero() {
     }
 
@@ -54,6 +55,7 @@ public class MovimientoDinero {
     public Concept getConcepto() {
         return concepto;
     }
+
     public void setConcepto(Concept concepto) {
         this.concepto = concepto;
     }
@@ -61,9 +63,11 @@ public class MovimientoDinero {
     public String getDescripcion() {
         return descripcion;
     }
+
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
+
     public Usuario getUsuario() {
         return usuario;
     }
@@ -91,6 +95,15 @@ public class MovimientoDinero {
     public void setMovUpdated() {
         this.movUpdated = LocalDate.now();
     }
+
+    public void setMovCreated(LocalDate movCreated) {
+        this.movCreated = movCreated;
+    }
+
+    public void setMovUpdated(LocalDate movUpdated) {
+        this.movUpdated = movUpdated;
+    }
+
     @Override
     public String toString() {
         return "MovimientoDinero{" +
