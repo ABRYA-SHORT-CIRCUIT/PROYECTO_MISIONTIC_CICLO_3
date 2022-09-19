@@ -1,5 +1,6 @@
 package com.proyecto.tvshop.Repositorios;
 
+import com.proyecto.tvshop.modelos.Concept;
 import com.proyecto.tvshop.modelos.MovimientoDinero;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -21,6 +22,6 @@ public interface MovimientoRepositorio extends JpaRepository<MovimientoDinero, I
 
     @Modifying
     @Query(value = "UPDATE MovimientoDinero SET concepto = ?1 WHERE id = ?2")
-    int updateTransConcById(String concepto, Integer id);
+    int updateTransConcById(Concept concepto, Integer id);
 }
 

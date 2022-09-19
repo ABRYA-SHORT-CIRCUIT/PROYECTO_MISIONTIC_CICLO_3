@@ -4,6 +4,7 @@ import com.proyecto.tvshop.Servicios.EmpresaService;
 import com.proyecto.tvshop.modelos.Empresa;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -26,12 +27,13 @@ public class EmpresaController {
 
     @GetMapping("/enterprises/{id}")
     public Empresa showEnterprise(@PathVariable("id") Integer idEnterprise){
-        return empresaService.consultarEmpresa(idEnterprise);
+        Optional<Empresa> fndEnterprise = empresaService.consultarEmpresa(idEnterprise);
+        return fndEnterprise.isEmpty()? new Empresa() : fndEnterprise.get();
     }
 
     @PatchMapping("/enterprises/{id}")
-    public Empresa updateEnterprise(@RequestBody Empresa editedEnterprise){
-        return empresaService.crearEmpresa(editedEnterprise);
+    public Empresa updateEnterprise(@PathVariable("id") Integer idEnterprise, @RequestBody Empresa editedEnterprise){
+        return empresaService.actualizarEmpresa(idEnterprise, editedEnterprise);
     }
 
     @DeleteMapping("/enterprises/{id}")

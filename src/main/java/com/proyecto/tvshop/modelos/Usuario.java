@@ -1,6 +1,8 @@
 package com.proyecto.tvshop.modelos;
 
+
 import javax.persistence.*;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "Usuarios")
@@ -12,8 +14,13 @@ public class Usuario {
 
     private String nombre;
     private String correo;
-    private String rol; //administrativo-operativo
+    private Roles rol;
 
+    private State usrState;
+
+    private LocalDate usrCreated;  //Fecha de creación del usuario
+
+    private LocalDate usrUpdated;   //Fecha de actualización del usuario
     @ManyToOne
     @JoinColumn(name = "empresa_id")
     private Empresa empresa;
@@ -24,22 +31,17 @@ public class Usuario {
     }
 
     //Construcctor
-
-
-    public Usuario(int id, String nombre, String correo, String rol, Empresa empresa) {
-        this.id = id;
+    public Usuario(String nombre, String correo, Roles rol, Empresa empresa) {
         this.nombre = nombre;
         this.correo = correo;
         this.empresa = empresa;
-
-        if (rol.equalsIgnoreCase("administrativo") || rol.equalsIgnoreCase("operativo")) {
-            this.rol = rol;
-        } else {
-            throw new RuntimeException("El rol digitado no es válido");
-        }
+        this.rol = rol;
+        setUsrState(State.ACTIVO);
+        this.usrCreated = LocalDate.now();
+        this.usrUpdated = LocalDate.now();
     }
 
-    public String getNombre() {
+   public String getNombre() {
         return nombre;
     }
 
@@ -55,16 +57,17 @@ public class Usuario {
         this.correo = correo;
     }
 
-    public String getRol() {
+    public Roles getRol() {
         return rol;
     }
 
-    public void setRol(String rol) {
+    public void setRol(Roles rol) {
+        this.rol = rol;/*
         if (rol.equals("administrativo") || rol.equals("operativo")) {
             this.rol = rol;
         } else {
             throw new RuntimeException("El rol digitado no es permitido");
-        }
+        }*/
     }
 
     public int getId() {
@@ -81,6 +84,26 @@ public class Usuario {
 
     public void setEmpresa(Empresa empresa) {
         this.empresa = empresa;
+    }
+
+    public State getUsrState() {
+        return usrState;
+    }
+
+    public void setUsrState(State usrState) {
+        this.usrState = usrState;
+    }
+
+    public LocalDate getUsrCreated() {
+        return usrCreated;
+    }
+
+    public LocalDate getUsrUpdated() {
+        return usrUpdated;
+    }
+
+    public void setUsrUpdated() {
+        this.usrUpdated = LocalDate.now();
     }
 
     @Override

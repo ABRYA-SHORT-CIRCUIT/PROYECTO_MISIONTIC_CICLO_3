@@ -21,8 +21,8 @@ public class EmpresaService {
     }
 
     //Consulta una sola empresa
-    public Empresa consultarEmpresa(Integer id_empresa) {
-        return empresaRepositorio.findById(id_empresa).get();
+    public Optional<Empresa> consultarEmpresa(Integer id_empresa) {
+        return empresaRepositorio.findById(id_empresa);
     }
 
     //Crea o actualiza una empresa
@@ -39,4 +39,20 @@ public class EmpresaService {
         return true;
     }
 
+    public Empresa actualizarEmpresa(Integer idEnterprise, Empresa editedEnterprise) {
+        Empresa updEnterprise;
+        Optional<Empresa> actualEnterprise = empresaRepositorio.findById(idEnterprise);
+        if(actualEnterprise.isPresent()) {
+            updEnterprise = actualEnterprise.get();
+            updEnterprise.setNombre(editedEnterprise.getNombre());
+            updEnterprise.setDireccion(editedEnterprise.getDireccion());
+            updEnterprise.setTelefono(editedEnterprise.getTelefono());
+            updEnterprise.setNit(editedEnterprise.getNit());
+            updEnterprise.setEntState(editedEnterprise.getEntState());
+            updEnterprise.setEntUpdated();
+        } else {
+            updEnterprise = editedEnterprise;
+        }
+        return empresaRepositorio.save(updEnterprise);
+    }
 }
