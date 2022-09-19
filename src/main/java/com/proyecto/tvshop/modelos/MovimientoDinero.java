@@ -1,15 +1,18 @@
 package com.proyecto.tvshop.modelos;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "Movimientos")
 public class MovimientoDinero {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private long monto;
-    private String concepto;
+    private Concept concepto;
+
+    private String descripcion;
     @ManyToOne
     @JoinColumn(name = "empleado_id")
     private Usuario usuario;
@@ -18,13 +21,16 @@ public class MovimientoDinero {
     @JoinColumn(name = "empresa_id")
     private Empresa empresa;
 
+    private LocalDate movCreated;  //Fecha de creación del movimiento
+
+    private LocalDate movUpdated;   //Fecha de actualización del movimiento
     public MovimientoDinero() {
     }
 
-    public MovimientoDinero(int id, long monto, String concepto, Usuario usuario) {
-        this.id = id;
+    public MovimientoDinero(long monto, Concept concepto, String descripcion, Usuario usuario) {
         this.monto = monto;
         this.concepto = concepto;
+        this.descripcion = descripcion;
         this.usuario = usuario;
         this.empresa = usuario.getEmpresa();
     }
@@ -45,14 +51,19 @@ public class MovimientoDinero {
         this.monto = monto;
     }
 
-    public String getConcepto() {
+    public Concept getConcepto() {
         return concepto;
     }
-
-    public void setConcepto(String concepto) {
+    public void setConcepto(Concept concepto) {
         this.concepto = concepto;
     }
 
+    public String getDescripcion() {
+        return descripcion;
+    }
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
     public Usuario getUsuario() {
         return usuario;
     }
@@ -69,6 +80,17 @@ public class MovimientoDinero {
         this.empresa = empresa;
     }
 
+    public LocalDate getMovCreated() {
+        return movCreated;
+    }
+
+    public LocalDate getMovUpdated() {
+        return movUpdated;
+    }
+
+    public void setMovUpdated() {
+        this.movUpdated = LocalDate.now();
+    }
     @Override
     public String toString() {
         return "MovimientoDinero{" +
