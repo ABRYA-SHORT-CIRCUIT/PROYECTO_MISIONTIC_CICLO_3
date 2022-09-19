@@ -13,17 +13,21 @@ public class Usuario {
     private int id;
 
     private String nombre;
+
     private String correo;
+
     private Roles rol;
 
     private State usrState;
 
-    private LocalDate usrCreated;  //Fecha de creación del usuario
-
-    private LocalDate usrUpdated;   //Fecha de actualización del usuario
     @ManyToOne
     @JoinColumn(name = "empresa_id")
     private Empresa empresa;
+
+    private LocalDate usrCreated;  //Fecha de creación del usuario
+
+    private LocalDate usrUpdated;   //Fecha de actualización del usuario
+
 
 
     //Construcctor
@@ -39,6 +43,14 @@ public class Usuario {
         setUsrState(State.ACTIVO);
         this.usrCreated = LocalDate.now();
         this.usrUpdated = LocalDate.now();
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
    public String getNombre() {
@@ -62,20 +74,7 @@ public class Usuario {
     }
 
     public void setRol(Roles rol) {
-        this.rol = rol;/*
-        if (rol.equals("administrativo") || rol.equals("operativo")) {
-            this.rol = rol;
-        } else {
-            throw new RuntimeException("El rol digitado no es permitido");
-        }*/
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
+        this.rol = rol;
     }
 
     public Empresa getEmpresa() {
