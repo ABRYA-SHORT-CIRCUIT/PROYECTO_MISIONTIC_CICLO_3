@@ -1,23 +1,92 @@
 package com.proyecto.tvshop.restController;
 
 
+import com.proyecto.tvshop.Servicios.EmpresaService;
 import com.proyecto.tvshop.Servicios.MovimientoService;
+import com.proyecto.tvshop.Servicios.UsuarioService;
+import com.proyecto.tvshop.modelos.Empresa;
 import com.proyecto.tvshop.modelos.MovimientoDinero;
+import com.proyecto.tvshop.modelos.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
-@RestController
+@RequestMapping("/movements")
+@Controller
 public class MovimientoController {
 
     @Autowired
     private MovimientoService movimientoServicio;
 
+    @Autowired
+    private UsuarioService usuarioService;
+
+    @Autowired
+    private EmpresaService empresaService;
+
+    //Consultar todos los movimientos registrados
+    @GetMapping("/allMovements")
+    public String consultarAllMovimientos(@ModelAttribute("mensaje") String mensaje, Model model){
+
+        List<MovimientoDinero> movList = movimientoServicio.consultarAllMovimientos();
+
+        model.addAttribute("movList",movList );
+        model.addAttribute("mensaje", mensaje);
+
+        return "movimiento/movimientos";
+    }
+
+    //Guardar movimiento nuevo
+    @GetMapping("/agregarMovimiento")
+    public String nuevoMovimiento(Model model, @ModelAttribute("mensaje") String mensaje) {
+
+        MovimientoDinero mov = new MovimientoDinero();
+
+        model.addAttribute("movi", mov);
+        model.addAttribute("mensaje", mensaje);
+
+        List<Usuario> listaUsuarios = usuarioService.listarUsuarios();
+        model.addAttribute("usuarioList", listaUsuarios);
+
+        List<Empresa> listaEmpresa = empresaService.listarEmpresas();
+        model.addAttribute("empresaList", listaEmpresa);
+
+        return "movimiento/crear_movimiento";
+    }
+
+    @PostMapping("/guardarNuevoMovimiento")
+    public String SaveMovements(MovimientoDinero movimiento, RedirectAttributes redirectAttributes) {
+        if (movimientoServicio.guardarMovimiento(movimiento)) {
+            redirectAttributes.addFlashAttribute("mensaje", "saveOk");
+            return "redirect:/allMovements";
+        }
+        redirectAttributes.addFlashAttribute("mensaje", "saveError");
+        return "redirect:/agregarMovimiento";
+    }
+
+
+    //VER UN SOLO MOVIMIENTO SEGUN SU ID
+    @GetMapping("/verMovimiento/{idMovimiento}")
+    public String mostrarMovimiento(@PathVariable("idMovimiento") Integer idMovimiento, Model model){
+
+        MovimientoDinero movimientoDinero = movimientoServicio.consultarMovimientoId(idMovimiento);
+        model.addAttribute("movimientoDinero", movimientoDinero);
+
+        return "movimiento/ver_movimiento";
+    }
+
+
+
+
+
     //Consultar todos los movimientos según la empresa
     @GetMapping("/enterprises/{id}/movements")
-    public List<MovimientoDinero> consultarMovimientos(@PathVariable("id") Integer id){
-        return movimientoServicio.consultarMovimientos(id);
+    public List<MovimientoDinero> consultarMovimientos(@PathVariable("id") Integer idEmpresa){
+        return movimientoServicio.consultarMovimientos(idEmpresa);
     }
 
     //Consultar un movimiento por id según la empresa
@@ -26,11 +95,7 @@ public class MovimientoController {
         return movimientoServicio.consultarMovimientoId(idM);
     }
 
-    //Guardar movimiento nuevo
-    @PostMapping("/enterprises/{id}/movements")
-    public MovimientoDinero SaveMovements(@RequestBody MovimientoDinero movimiento) {
-        return movimientoServicio.guardarMovimiento(movimiento);
-    }
+
 
     //Actualizar movimiento, solo para monto y concepto de la transacción
     @PatchMapping("/enterprises/{idE}/movements/{idM}")

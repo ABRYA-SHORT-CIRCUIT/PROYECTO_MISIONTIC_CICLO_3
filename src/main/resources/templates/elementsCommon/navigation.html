@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+  ...
+</head>
+<body>
+
+<div th:fragment="barraIzquierda">
+
+  <div class="row">
+    <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+      <div class="position-sticky pt-3 sidebar-sticky">
+        <ul class="nav flex-column">
+          <li class="nav-item">
+            <a class="nav-link" href="#">
+              <span data-feather="home" class="align-text-bottom"></span>
+              Empresas
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" onclick="window.location.href='/movements/allMovements'">
+              <span data-feather="file" class="align-text-bottom"></span>
+              Movimientos
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">
+              <span data-feather="users" class="align-text-bottom"></span>
+              Usuarios
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+</div>
+
+</div>
+</body>
+</html>

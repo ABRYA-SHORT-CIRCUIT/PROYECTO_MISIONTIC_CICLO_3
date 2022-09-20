@@ -21,19 +21,20 @@ public class MovimientoDinero {
     @JoinColumn(name = "empresa_id")
     private Empresa empresa;
 
-    private LocalDate movCreated;  //Fecha de creación del movimiento
+    private LocalDate createdAt;  //Fecha de creación del movimiento
 
-    private LocalDate movUpdated;   //Fecha de actualización del movimiento
+    private LocalDate upDateAt;   //Fecha de actualización del movimiento
 
     public MovimientoDinero() {
     }
 
-    public MovimientoDinero(long monto, Concept concepto, String descripcion, Usuario usuario) {
+    public MovimientoDinero(long monto, Concept concepto, String descripcion, Usuario usuario, LocalDate fechaCreacion) {
         this.monto = monto;
         this.concepto = concepto;
         this.descripcion = descripcion;
         this.usuario = usuario;
         this.empresa = usuario.getEmpresa();
+        this.createdAt = fechaCreacion;
     }
 
     public int getId() {
@@ -84,24 +85,24 @@ public class MovimientoDinero {
         this.empresa = empresa;
     }
 
-    public LocalDate getMovCreated() {
-        return movCreated;
+    public LocalDate getCreatedAt() {
+        return createdAt;
     }
 
-    public LocalDate getMovUpdated() {
-        return movUpdated;
+    public LocalDate getUpDateAt() {
+        return upDateAt;
     }
 
     public void setMovUpdated() {
-        this.movUpdated = LocalDate.now();
+        this.upDateAt = LocalDate.now();
     }
 
-    public void setMovCreated(LocalDate movCreated) {
-        this.movCreated = movCreated;
+    public void setCreatedAt(LocalDate createdAt) {
+        this.createdAt = createdAt;
     }
 
-    public void setMovUpdated(LocalDate movUpdated) {
-        this.movUpdated = movUpdated;
+    public void setUpDateAt(LocalDate upDateAt) {
+        this.upDateAt = upDateAt;
     }
 
     @Override

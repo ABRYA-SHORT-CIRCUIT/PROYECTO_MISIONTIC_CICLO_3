@@ -1,20 +1,17 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Hugo 0.101.0">
-    <title>ABRYA TV Shop · Editar Movimiento</title>
+    <title>ABRYA TV Shop · Consulta Movimiento</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/dashboard/">
 
-    
 
-    
-
-<link href="../static/assets/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <style>
       .bd-placeholder-img {
@@ -71,21 +68,15 @@
 
     
     <!-- Custom styles-->
-    <link href="../static/css/dashboard.css" rel="stylesheet">
+    <link href="../css/dashboard.css" rel="stylesheet">
   </head>
   <body>
     
 <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
-  <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6" href="#">ABRYA TV Shop</a>
-  <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="navbar-nav">
-    <div class="nav-item text-nowrap">
-      <a class="nav-link px-3" href="#">Salir</a>
-    </div>
-  </div>
-</header>
+
+  <!--    Barra titulo principal-->
+  <div th:replace="elementsCommon/headerMovimiento :: headerMovimiento">...</div>
+  <!--   fin Barra titulo principal-->
 
 <div class="container-fluid">
   <div class="row">
@@ -106,8 +97,8 @@
           </li>
           <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="#">
-              ...<span data-feather="layers" class="align-text-bottom"></span>
-              Editar movimiento
+              ...<span data-feather="file-text" class="align-text-bottom"></span>
+              Ver movimiento
             </a>
           </li>
           <li class="nav-item">
@@ -124,63 +115,64 @@
 
       <h2>Movimiento</h2>
       <div class="table-responsive col-8">
-        <form class="needs-validation" novalidate>
-          <table class="table table-striped table-sm">
-            <thead>
-              <tr>
-                <th scope="col" class="col-3">Campo</th>
-                <th scope="col">Valor</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>ID</td>
-                <td>
-                  <input type="text" class="form-control" id="ID" placeholder="" value="" required>
-                  <div class="invalid-feedback">
-                    Por favor ingrese un valor.
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td>Descripción</td>
-                <td>
-                  <input type="text" class="form-control" id="Nombre" placeholder="Descripción del movimiento" value="" required>
-                  <div class="invalid-feedback">
-                    Por favor ingrese una descripción.
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td>Valor</td>
-                <td>
-                  <input type="text" class="form-control" id="Direccion" placeholder="250000" value="" required>
-                  <div class="invalid-feedback">
-                    Por favor ingrese un valor.
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td>Concepto</td>
-                <td>
-                  <select class="form-select" id="estado" required>
-                    <option value="">Seleccionar...</option>
-                    <option>Compra</option>
-                    <option>Venta</option>
-                    <option>Gasto</option>
-                    <option>Devolución</option>
-                    <option>Reembolso</option>
-                  </select>
-                  <div class="invalid-feedback">
-                    Por favor seleccione una opción.
-                  </div>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-          <button class="w-25 btn btn-secondary btn-lg" type="submit">Guardar</button>
-          <button class="w-25 btn btn-dark btn-lg" type="submit">Cancelar</button>
-        </form>
+        <table class="table table-striped table-sm">
+
+          <form th:action="@{/verMovimiento/{idMovimiento}}" th:object="${movimientoDinero}" method="get">
+
+          <thead>
+            <tr>
+              <th scope="col" class="col-3">Campo</th>
+              <th scope="col">Valor</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr>
+              <td>ID</td>
+              <td th:text="${movimientoDinero.id}"></td>
+            </tr>
+            <tr>
+              <td>Concepto</td>
+              <td th:text="${movimientoDinero.concepto.nombre}"></td>
+            </tr>
+            <tr>
+              <td>Monto</td>
+              <td th:text="${movimientoDinero.id}"></td>
+            </tr>
+
+            <tr>
+              <td>Descripcion</td>
+              <td th:text="${movimientoDinero.descripcion}"></td>
+            </tr>
+
+            <tr>
+              <td>Usuario</td>
+              <td th:text="${movimientoDinero.usuario.nombre}"></td>
+            </tr>
+
+            <tr>
+              <td>Empresa</td>
+              <td th:text="${movimientoDinero.empresa.nombre}"></td>
+            </tr>
+
+            <tr>
+              <td>Fecha de creacion</td>
+              <td th:text="${#temporals.format(movimientoDinero.createdAt, 'dd-MM-yyyy')}"></td>
+            </tr>
+
+            <tr>
+              <td>Fecha de edicion</td>
+              <td th:text="${#temporals.format(movimientoDinero.upDateAt, 'dd-MM-yyyy')}"></td>
+            </tr>
+
+          </tbody>
+          </form>
+        </table>
+
+        <button type="button" class="btn btn-secondary">Editar</button>
+        <button type="button" class="btn btn-dark">Crear</button>
+        <button type="button" class="btn btn-danger">Eliminar</button>
+
       </div>
     </main>
   </div>
