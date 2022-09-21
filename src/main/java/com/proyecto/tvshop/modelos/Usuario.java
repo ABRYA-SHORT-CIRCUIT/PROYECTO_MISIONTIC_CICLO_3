@@ -16,8 +16,10 @@ public class Usuario {
 
     private String correo;
 
+    @Enumerated(EnumType.STRING)
     private Roles rol;
 
+    @Enumerated(EnumType.STRING)
     private State usrState;
 
     @ManyToOne
@@ -105,14 +107,5 @@ public class Usuario {
         this.usrUpdated = LocalDate.now();
     }
 
-    @Override
-    public String toString() {
-        return "Empleado{" +
-                "id=" + id +
-                ", nombre='" + nombre + '\'' +
-                ", correo='" + correo + '\'' +
-                ", rol='" + rol + '\'' +
-                ", empresa=" + empresa +
-                '}';
-    }
+
 }

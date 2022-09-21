@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.101.0">
+    <title>ABRYA TV Shop · Editar Movimiento</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/dashboard/">
+
+    <!--    <link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">-->
+    <link rel="stylesheet" th:href="@{/assets/dist/css/bootstrap.min.css}"/>
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+
+      .b-example-divider {
+        height: 3rem;
+        background-color: rgba(0, 0, 0, .1);
+        border: solid rgba(0, 0, 0, .15);
+        border-width: 1px 0;
+        box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
+      }
+
+      .b-example-vr {
+        flex-shrink: 0;
+        width: 1.5rem;
+        height: 100vh;
+      }
+
+      .bi {
+        vertical-align: -.125em;
+        fill: currentColor;
+      }
+
+      .nav-scroller {
+        position: relative;
+        z-index: 2;
+        height: 2.75rem;
+        overflow-y: hidden;
+      }
+
+      .nav-scroller .nav {
+        display: flex;
+        flex-wrap: nowrap;
+        padding-bottom: 1rem;
+        margin-top: -1px;
+        overflow-x: auto;
+        text-align: center;
+        white-space: nowrap;
+        -webkit-overflow-scrolling: touch;
+      }
+
+
+    </style>
+
+
+    <!-- Custom styles-->
+    <!--    <link href="../css/dashboard.css" rel="stylesheet">-->
+    <link rel="stylesheet" th:href="@{/css/dashboard.css}"/>
+</head>
+<body>
+
+<!--    Barra titulo principal-->
+<div th:replace="elementsCommon/headerMovimiento :: headerMovimiento">...</div>
+<!--   fin Barra titulo principal-->
+
+<div class="container-fluid">
+    <!--    Barra de izquierda inicio-->
+    <div th:replace="elementsCommon/navigation :: barraIzquierda">...</div>
+
+    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+
+        <h2>Movimiento</h2>
+        <div class="table-responsive col-8">
+            <form class="needs-validation" novalidate th:action="@{/movements/ActualizarMovimiento}"
+                  th:object="${movimiento}" method="post">
+
+                <table class="table table-striped table-sm">
+                    <thead>
+                    <tr>
+                        <th scope="col" class="col-3">Campo</th>
+                        <th scope="col">Valor</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    <!--Campo para id-->
+                    <tr>
+                        <td>ID</td>
+
+                        <td>
+                            <input type="text" th:field="*{id}" class="form-control" id="id"
+                                   value="" required readonly>
+                            <div class="invalid-feedback">
+                            </div>
+                        </td>
+                    </tr>
+                    <!--Campo para concepto-->
+                    <tr>
+                        <td>Concepto</td>
+                        <td>
+                            <select th:field="*{concepto}" class="form-select" id="concepto" required>
+                                <option th:each="conceptoOpcion : ${T(com.proyecto.tvshop.modelos.Concept).values()}"
+                                        th:value="${conceptoOpcion}" th:text="${conceptoOpcion.nombre}"></option>
+
+                            </select>
+                            <div class="invalid-feedback">
+                            </div>
+                        </td>
+
+                    </tr>
+
+                    <!--Campo para valor-->
+                    <tr>
+                        <td>Valor</td>
+                        <td>
+                            <input type="text" th:field="*{monto}" class="form-control" id="monto"
+                                   placeholder="0000000000" value="" required>
+                            <div class="invalid-feedback">
+                                Por favor ingrese un valor.
+                            </div>
+                        </td>
+                    </tr>
+
+                    <!--Campo para Descripción-->
+                    <tr>
+                        <td>Descripción</td>
+                        <td>
+                            <input type="text" th:field="*{descripcion}" class="form-control" id="descripcionMovimiento"
+                                   value="" required>
+                            <div class="invalid-feedback">
+                                Por favor ingrese una descripción.
+                            </div>
+                        </td>
+                    </tr>
+
+                    <!--Campo para leer usuario-->
+                    <tr>
+                        <td>Usuario</td>
+                        <td>
+                            <input type="text" th:field="*{usuario}" class="form-control" id="usuario"
+                                   value="" required readonly>
+                            <div class="invalid-feedback">
+                                Por favor seleccione un opción.
+                            </div>
+                        </td>
+                    </tr>
+
+                    <!--Campo para empresa-->
+                    <tr>
+                        <td>Empresa</td>
+                        <td>
+                            <input type="text" th:field="*{empresa}" class="form-control" id="empresa"
+                                   value="" required readonly>
+                            <div class="invalid-feedback">
+                            </div>
+                        </td>
+                    </tr>
+
+                    <!--Campo para leer fecha de creacion-->
+                    <tr>
+                        <td>Fecha de creacion</td>
+                        <td>
+                            <input type="date" th:field="*{createdAt}" th:value="${createdAt}" class="form-control"
+                                   id="fecha" required="required" readonly>
+                        </td>
+                    </tr>
+
+                    <!--Campo para leer fecha de edicion-->
+                    <tr>
+                        <td>Fecha de edicion</td>
+                        <td>
+                            <input type="date" th:field="*{upDateAt}" th:value="${upDateAt}" class="form-control"
+                                   id="fechaEdicion" required="required" readonly>
+                        </td>
+                    </tr>
+                    </tr>
+
+                    </tbody>
+                </table>
+                <button class="w-25 btn btn-secondary btn-lg" type="submit">Guardar</button>
+                <button class="w-25 btn btn-dark btn-lg" type="submit" th:href="@{/movements/allMovements}">Cancelar
+                </button>
+            </form>
+        </div>
+    </main>
+</div>
+
+
+<script th:src="@{/assets/dist/js/bootstrap.bundle.min.js}"></script>
+<script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js"
+        integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"
+        integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha"
+        crossorigin="anonymous"></script>
+<script th:src="@{/script/dashboard.js}"></script>
+</body>
+</html>

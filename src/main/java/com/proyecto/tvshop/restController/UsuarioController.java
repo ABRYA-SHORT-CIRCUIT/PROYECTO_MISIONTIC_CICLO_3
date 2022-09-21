@@ -3,20 +3,23 @@ package com.proyecto.tvshop.restController;
 import com.proyecto.tvshop.Servicios.UsuarioService;
 import com.proyecto.tvshop.modelos.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
 
-@RestController
+@RequestMapping("/users")
+@Controller
 public class UsuarioController {
 
     @Autowired
     private UsuarioService usuarioService;
 
-    @GetMapping("/users")
-    public List<Usuario> consultarTodosUsuarios() {
-        return usuarioService.listarUsuarios();
+    @GetMapping("/allUsers")
+    public String consultarTodosUsuarios() {
+        List<Usuario> listadoUsuarios = usuarioService.listarUsuarios();
+        return "usuarios";
     }
 
     @PostMapping("/users")

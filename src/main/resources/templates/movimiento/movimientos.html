@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.101.0">
+    <title>ABRYA TV Shop · Movimientos</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/dashboard/">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+
+    <link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
+
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+
+      .b-example-divider {
+        height: 3rem;
+        background-color: rgba(0, 0, 0, .1);
+        border: solid rgba(0, 0, 0, .15);
+        border-width: 1px 0;
+        box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
+      }
+
+      .b-example-vr {
+        flex-shrink: 0;
+        width: 1.5rem;
+        height: 100vh;
+      }
+
+      .bi {
+        vertical-align: -.125em;
+        fill: currentColor;
+      }
+
+      .nav-scroller {
+        position: relative;
+        z-index: 2;
+        height: 2.75rem;
+        overflow-y: hidden;
+      }
+
+      .nav-scroller .nav {
+        display: flex;
+        flex-wrap: nowrap;
+        padding-bottom: 1rem;
+        margin-top: -1px;
+        overflow-x: auto;
+        text-align: center;
+        white-space: nowrap;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      .toast {
+    --bs-toast-bg: rgba(6, 6, 6, 0.85);
+    }
+
+
+
+
+    </style>
+
+
+    <!-- Custom styles-->
+    <link href="../css/dashboard.css" rel="stylesheet">
+</head>
+<body>
+<!--    Barra titulo principal-->
+<div th:replace="elementsCommon/headerMovimiento :: headerMovimiento">...</div>
+<!--   fin Barra titulo principal-->
+
+<div class="container-fluid">
+
+    <!--    Barra de izquierda inicio-->
+    <div th:replace="elementsCommon/navigation :: barraIzquierda">...</div>
+
+    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+
+        <!--Barra de titulo 2-->
+        <br>
+        <div class="row">
+            <div class="col-5">
+                <h2>Movimientos</h2>
+            </div>
+            <div class="col-6">
+                <button type="button" class="btn btn-dark" style="float: right;"
+                        onclick="window.location.href='/movements/agregarMovimiento'">Crear
+                </button>
+            </div>
+        </div>
+        <br>
+        <!--            Barra de titulo 2-->
+
+        <div class="table-responsive">
+            <table class="table table-striped table-sm">
+                <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Concepto</th>
+                    <th scope="col">Monto</th>
+                    <th scope="col">Usuario</th>
+                    <th scope="col">Fecha de creacion</th>
+                    <th scope="col">Fecha de actualizacion</th>
+                    <th scope="col">Empresa</th>
+                    <th scope="col">Descripcion</th>
+                    <th scope="col">Acciones</th>
+                </tr>
+                </thead>
+
+                <!--       Filas: lista de movimientos-->
+                <tbody>
+                <tr th:each="movimiento : ${movList}">
+
+                    <td th:text="${movimiento.id}"></td>
+
+                    <td th:text="${movimiento.concepto.nombre}"></td>
+                    <td th:text="${movimiento.monto}"></td>
+                    <td th:text="${movimiento.usuario.nombre}"></td>
+
+                    <td th:text="${#temporals.format(movimiento.createdAt, 'dd-MM-yyyy')}"></td>
+                    <td th:text="${#temporals.format(movimiento.upDateAt, 'dd-MM-yyyy')}"></td>
+
+                    <td th:text="${movimiento.empresa.nombre}"></td>
+                    <td th:text="${movimiento.descripcion}"></td>
+
+                    <!--              Boton ojo para Ver Movimiento-->
+                    <td><a class="nav-link"
+                           th:href="@{/movements/verMovimiento/{idMovimiento}(idMovimiento=${movimiento.id})}"
+                           style="display: inline-block">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                             class="bi bi-eye-fill" viewBox="0 0 16 16">
+                            <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
+                            <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/>
+                        </svg>
+                    </a>
+                        <!--              Boton lapiz para editar Movimiento-->
+
+                        <a class="nav-link"
+                           th:href="@{/movements/editarMovimiento/{idMovimiento}(idMovimiento=${movimiento.id})}"
+                           style="display: inline-block">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                 class="bi bi-pencil-fill" viewBox="0 0 16 16">
+                                <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z"/>
+                            </svg>
+                        </a>
+                        <!--              Boton caneca para borrar Movimiento-->
+
+                        <a class="nav-link"
+                           th:href="@{/movements/EliminarMovimiento/{idMovimiento}(idMovimiento=${movimiento.id})}"
+                           style="display: inline-block">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                 class="bi bi-trash-fill" viewBox="0 0 16 16">
+                                <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/>
+                            </svg>
+                        </a>
+                    </td>
+                </tr>
+
+
+                </tbody>
+            </table>
+        </div>
+    </main>
+</div>
+</div>
+
+
+<script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js"
+        integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"
+        integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha"
+        crossorigin="anonymous"></script>
+<script src="../script/dashboard.js"></script>
+
+
+<script th:inline="javascript">
+    window.onload=function(){
+
+        var msg= [[${mensaje}]];
+        toastr.options = {
+          "closeButton": false,
+          "debug": false,
+          "newestOnTop": false,
+          "progressBar": false,
+          "positionClass": "toast-top-right",
+          "preventDuplicates": false,
+          "onclick": null,
+          "showDuration": "1000",
+          "hideDuration": "1000",
+          "timeOut": "5000",
+          "extendedTimeOut": "1000",
+          "showEasing": "swing",
+          "hideEasing": "linear",
+          "showMethod": "fadeIn",
+          "hideMethod": "fadeOut"
+        }
+        if (msg == "saveOk"){
+            Command : toastr["success"]("Movimiento creado con éxito!")
+            }
+        else if (msg == "updateOK"){
+            Command : toastr["success"]("Movimiento actualizado con éxito!")
+        }
+        else if (msg == "updateERROR"){
+            Command : toastr["error"]("Movimiento no ha sido actualizado con éxito!")
+        }
+        else if (msg == "deleteOK"){
+            Command : toastr["error"]("Movimiento eliminado con éxito!")
+        }
+        else if (msg == "deleteError"){
+            Command : toastr["error"]("Movimiento no ha sido eliminada!")
+        }
+
+
+    }
+
+
+
+
+</script>
+</body>
+</html>
