@@ -139,18 +139,18 @@
                 </form>
             </table>
 
-            <button type="button" class="btn btn-secondary">
-                <a th:href="@{/movements/editarMovimiento/{idMovimiento}(idMovimiento=${movimientoDinero.id})}">Editar</a>
-
+            <button type="button" class="btn btn-secondary" th:onclick="|window.location.href='/movements/editarMovimiento/${movimientoDinero.id}'|">
+                Editar
             </button>
 
             <button type="button" class="btn btn-dark" onclick="window.location.href='/movements/agregarMovimiento'">
                 Crear
             </button>
 
-            <button type="button" class="btn btn-danger" onclick="window.location.href='/movements/borrarMovimiento'">
+            <button type="button" class="btn btn-danger" th:onclick="|window.location.href='/movements/EliminarMovimiento/${movimientoDinero.id}'|">
                 Eliminar
             </button>
+
 
 
         </div>

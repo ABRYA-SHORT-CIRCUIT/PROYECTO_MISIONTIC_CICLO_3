@@ -100,15 +100,20 @@ public class MovimientoController {
                                    RedirectAttributes redirectAttributes) {
         movimientoServicio.actualizarMovimiento(movimiento.getId(),movimiento);
 
-//        if (movimientoServicio.saveOrUpdateMovimiento(movimiento)) {
-//            redirectAttributes.addFlashAttribute("mensaje", "updateOK");
-//            return "redirect://allMovements";
-//        }
-//        redirectAttributes.addFlashAttribute("mensaje", "updateError");
-//        return "redirect:/editarMovimiento/"+movimiento.getId();
         return "redirect:/movements/allMovements";
     }
 
+    //ELIMINAR MOVIMIENTO
+    @GetMapping("/EliminarMovimiento/{idMovimiento}")
+    public String eliminarMovimiento(@PathVariable ("idMovimiento") Integer id, RedirectAttributes redirectAttributes){
+
+        if (movimientoServicio.borrarMovimiento(id)==true){
+            redirectAttributes.addFlashAttribute("mensaje","deleteOK");
+            return "redirect:/movements/allMovements";
+        }
+        redirectAttributes.addFlashAttribute("mensaje", "deleteError");
+        return "redirect:/movements/allMovements";
+    }
 
 
     //Consultar todos los movimientos según la empresa

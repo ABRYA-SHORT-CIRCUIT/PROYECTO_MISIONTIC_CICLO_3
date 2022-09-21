@@ -1,5 +1,7 @@
 package com.proyecto.tvshop.modelos;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 
@@ -21,8 +23,10 @@ public class MovimientoDinero {
     @JoinColumn(name = "empresa_id")
     private Empresa empresa;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate createdAt;  //Fecha de creación del movimiento
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate upDateAt;   //Fecha de actualización del movimiento
 
     public MovimientoDinero() {
