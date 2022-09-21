@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,7 +22,7 @@ public interface MovimientoRepositorio extends JpaRepository<MovimientoDinero, I
     int updateTransValById(Long val, Integer id);
 
     @Modifying
-    @Query(value = "UPDATE MovimientoDinero SET concepto = ?1 WHERE id = ?2")
-    int updateTransConcById(Concept concepto, Integer id);
+    @Query(value = "UPDATE MovimientoDinero SET concepto = ?1, upDateAt = ?2 WHERE id = ?3")
+    int updateTransConcById(Concept concepto, LocalDate upDateAt, Integer id);
 }
 

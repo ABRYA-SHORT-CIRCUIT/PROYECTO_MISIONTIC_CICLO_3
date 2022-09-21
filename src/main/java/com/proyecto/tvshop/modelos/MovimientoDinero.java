@@ -26,15 +26,16 @@ public class MovimientoDinero {
     private LocalDate upDateAt;   //Fecha de actualización del movimiento
 
     public MovimientoDinero() {
+        this.createdAt = LocalDate.now();
     }
 
-    public MovimientoDinero(long monto, Concept concepto, String descripcion, Usuario usuario, LocalDate fechaCreacion) {
+    public MovimientoDinero(long monto, Concept concepto, String descripcion, Usuario usuario ) {
         this.monto = monto;
         this.concepto = concepto;
         this.descripcion = descripcion;
         this.usuario = usuario;
         this.empresa = usuario.getEmpresa();
-        this.createdAt = fechaCreacion;
+        this.createdAt = LocalDate.now();
     }
 
     public int getId() {

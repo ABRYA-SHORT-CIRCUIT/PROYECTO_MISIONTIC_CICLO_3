@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RequestMapping("/movements")
@@ -62,10 +63,10 @@ public class MovimientoController {
     public String SaveMovements(MovimientoDinero movimiento, RedirectAttributes redirectAttributes) {
         if (movimientoServicio.guardarMovimiento(movimiento)) {
             redirectAttributes.addFlashAttribute("mensaje", "saveOk");
-            return "redirect:/allMovements";
+            return "redirect:/movements/allMovements";
         }
         redirectAttributes.addFlashAttribute("mensaje", "saveError");
-        return "redirect:/agregarMovimiento";
+        return "redirect:/movements/agregarMovimiento";
     }
 
 
@@ -80,6 +81,33 @@ public class MovimientoController {
     }
 
 
+    //EDITAR MOVIMIENTO
+
+    @GetMapping("/editarMovimiento/{idMovimiento}")
+    public String editarMovimiento(@PathVariable("idMovimiento") Integer idMovimiento, Model model,
+                                   @ModelAttribute("mensaje") String mensaje) {
+
+        MovimientoDinero movimiento = movimientoServicio.consultarMovimientoId(idMovimiento);
+        model.addAttribute("movimiento", movimiento);
+        model.addAttribute("mensaje", mensaje);
+
+
+        return "movimiento/editar_movimiento";
+    }
+
+    @PostMapping("/ActualizarMovimiento")
+    public String updateMovimiento(@ModelAttribute("movi") MovimientoDinero movimiento,
+                                   RedirectAttributes redirectAttributes) {
+        movimientoServicio.actualizarMovimiento(movimiento.getId(),movimiento);
+
+//        if (movimientoServicio.saveOrUpdateMovimiento(movimiento)) {
+//            redirectAttributes.addFlashAttribute("mensaje", "updateOK");
+//            return "redirect://allMovements";
+//        }
+//        redirectAttributes.addFlashAttribute("mensaje", "updateError");
+//        return "redirect:/editarMovimiento/"+movimiento.getId();
+        return "redirect:/movements/allMovements";
+    }
 
 
 

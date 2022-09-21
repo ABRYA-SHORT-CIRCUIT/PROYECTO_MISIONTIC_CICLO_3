@@ -11,8 +11,9 @@
     <link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/dashboard/">
 
 
-<link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
 
+
+    <link rel="stylesheet" th:href="@{/assets/dist/css/bootstrap.min.css}" />
     <style>
       .bd-placeholder-img {
         font-size: 1.125rem;
@@ -68,7 +69,7 @@
 
     
     <!-- Custom styles-->
-    <link href="../css/dashboard.css" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/dashboard.css}"/>
   </head>
   <body>
 
@@ -78,37 +79,8 @@
 
 <div class="container-fluid">
 
-  <div class="row">
-    <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
-      <div class="position-sticky pt-3 sidebar-sticky">
-        <ul class="nav flex-column">
-          <li class="nav-item">
-            <a class="nav-link" href="#">
-              <span data-feather="home" class="align-text-bottom"></span>
-              Empresas
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">
-              <span data-feather="file" class="align-text-bottom"></span>
-              Movimientos
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">
-              ...<span data-feather="layers" class="align-text-bottom"></span>
-              Editar movimiento
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">
-              <span data-feather="users" class="align-text-bottom"></span>
-              Usuarios
-            </a>
-          </li>
-        </ul>
-      </div>
-    </nav>
+  <!--    Barra de izquierda inicio-->
+  <div th:replace="elementsCommon/navigation :: barraIzquierda">...</div>
 
     <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
 
@@ -170,7 +142,7 @@
               <td>
                 <select class="form-select" th:field="*{usuario}" id="usuario" required>
                   <option value="" disabled selected>Seleccionar...</option>
-                  <option th:each="usuario: ${usuarioList}" th:text="${usuario.nombre}" th:value="${usuario}">
+                  <option th:each="usuario: ${usuarioList}" th:text="${usuario.nombre}" th:value="${usuario.id}">
                   </option>
                 </select>
                 <div class="invalid-feedback">
@@ -179,36 +151,45 @@
               </td>
             </tr>
 
-<!--            &lt;!&ndash;Campo para empresa&ndash;&gt;-->
-<!--            <tr>-->
-<!--              <td>Empresa</td>-->
-<!--              <td>-->
-<!--                <select class="form-select" th:field="*{empresa.id}" id="empresa" required>-->
-<!--                  <option value="" disabled selected>Seleccionar...</option>-->
-<!--                  <option th:each="empresa: ${empresaList}" th:text="${empresa.nombre}" th:value="${empresa.id}">-->
-<!--                  </option>-->
-<!--                </select>-->
-<!--                <div class="invalid-feedback">-->
-<!--                  Por favor seleccione una opción.-->
-<!--                </div>-->
-<!--              </td>-->
-<!--            </tr>-->
-
+            <!--Campo para empresa-->
+            <tr>
+              <td>Empresa</td>
+              <td>
+                <select class="form-select" th:field="*{empresa}" id="empresa" required>
+                  <option value="" disabled selected>Seleccionar...</option>
+                  <option th:each="empresa: ${empresaList}" th:text="${empresa.nombre}" th:value="${empresa.id}">
+                  </option>
+                </select>
+                <div class="invalid-feedback">
+                  Por favor seleccione una opción.
+                </div>
+              </td>
+            </tr>
 
             </tbody>
           </table>
+
+
           <button class="w-25 btn btn-secondary btn-lg" type="submit">Guardar Movimiento</button>
 
-          <button class="w-25 btn btn-dark btn-lg" type="submit">Cancelar</button>
+          <button class="w-25 btn btn-dark btn-lg" type="submit" th:href="@{/movements/allMovements}">Cancelar</button>
+
+
         </form>
       </div>
     </main>
   </div>
-</div>
 
 
-    <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
 
-      <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js" integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE" crossorigin="anonymous"></script><script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js" integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha" crossorigin="anonymous"></script><script src="../script/dashboard.js"></script>
+
+  <script th:src="@{/assets/dist/js/bootstrap.bundle.min.js}"></script>
+  <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js"
+          integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE"
+          crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"
+          integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha"
+          crossorigin="anonymous"></script>
+  <script th:src="@{/script/dashboard.js}"></script>
   </body>
 </html>

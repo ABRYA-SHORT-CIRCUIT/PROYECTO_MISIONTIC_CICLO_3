@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -31,6 +32,7 @@ public class MovimientoService {
 
     //Guardar nuevo movimiento
     public Boolean guardarMovimiento(MovimientoDinero movimiento){
+        movimiento.setCreatedAt(LocalDate.now());
         MovimientoDinero mov=movimientoRepositorio.save(movimiento);
         if(movimientoRepositorio.findById(mov.getId())!=null){
             return true;
@@ -41,10 +43,12 @@ public class MovimientoService {
     //Actualizar información de movimiento (Monto, Concepto)
     @Transactional
     public int actualizarMovimiento(Integer id, MovimientoDinero movimiento){
-        int changes = movimientoRepositorio.updateTransConcById(movimiento.getConcepto(), id);
+        int changes = movimientoRepositorio.updateTransConcById(movimiento.getConcepto(), LocalDate.now(), id);
         changes += movimientoRepositorio.updateTransValById(movimiento.getMonto(), id);
         return changes;
     }
+
+
 
     //Eliminar movimiento
     @Transactional
