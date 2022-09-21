@@ -65,6 +65,7 @@
         -webkit-overflow-scrolling: touch;
       }
 
+
     </style>
 
 
@@ -101,6 +102,17 @@
                     <!--Campo para id-->
                     <tr>
                         <td>ID</td>
+
+                        <td>
+                            <input type="text" th:field="*{id}" class="form-control" id="id"
+                                   value="" required readonly>
+                            <div class="invalid-feedback">
+                            </div>
+                        </td>
+                    </tr>
+                    <!--Campo para concepto-->
+                    <tr>
+                        <td>Concepto</td>
                         <td>
                             <select th:field="*{concepto}" class="form-select" id="concepto" required>
                                 <option th:each="conceptoOpcion : ${T(com.proyecto.tvshop.modelos.Concept).values()}"
@@ -110,16 +122,7 @@
                             <div class="invalid-feedback">
                             </div>
                         </td>
-                    </tr>
-                    <!--Campo para concepto-->
-                    <tr>
-                        <td>Concepto</td>
-                        <td>
-                            <input type="text" th:field="*{id}" class="form-control" id="id"
-                                   value="" required readonly>
-                            <div class="invalid-feedback">
-                            </div>
-                        </td>
+
                     </tr>
 
                     <!--Campo para valor-->
@@ -139,7 +142,7 @@
                         <td>Descripción</td>
                         <td>
                             <input type="text" th:field="*{descripcion}" class="form-control" id="descripcionMovimiento"
-                                    value="" required>
+                                   value="" required>
                             <div class="invalid-feedback">
                                 Por favor ingrese una descripción.
                             </div>
@@ -191,7 +194,8 @@
                     </tbody>
                 </table>
                 <button class="w-25 btn btn-secondary btn-lg" type="submit">Guardar</button>
-                <button class="w-25 btn btn-dark btn-lg" type="submit" th:href="@{/movements/allMovements}">Cancelar</button>
+                <button class="w-25 btn btn-dark btn-lg" type="submit" th:href="@{/movements/allMovements}">Cancelar
+                </button>
             </form>
         </div>
     </main>

@@ -98,8 +98,13 @@ public class MovimientoController {
     @PostMapping("/ActualizarMovimiento")
     public String updateMovimiento(@ModelAttribute("movi") MovimientoDinero movimiento,
                                    RedirectAttributes redirectAttributes) {
-        movimientoServicio.actualizarMovimiento(movimiento.getId(),movimiento);
 
+
+        if (movimientoServicio.actualizarMovimiento(movimiento.getId(),movimiento)!=0){
+            redirectAttributes.addFlashAttribute("mensaje","updateOK");
+            return "redirect:/movements/allMovements";
+        }
+        redirectAttributes.addFlashAttribute("mensaje", "updateERROR");
         return "redirect:/movements/allMovements";
     }
 

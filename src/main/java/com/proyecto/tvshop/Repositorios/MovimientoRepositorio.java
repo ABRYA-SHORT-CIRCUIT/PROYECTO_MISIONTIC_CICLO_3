@@ -22,7 +22,7 @@ public interface MovimientoRepositorio extends JpaRepository<MovimientoDinero, I
     int updateTransValById(Long val, Integer id);
 
     @Modifying
-    @Query(value = "UPDATE MovimientoDinero SET concepto = ?1, upDateAt = ?2 WHERE id = ?3")
-    int updateTransConcById(Concept concepto, LocalDate upDateAt, Integer id);
+    @Query(value = "UPDATE MovimientoDinero SET concepto = ?1, upDateAt = ?2, descripcion=?3 WHERE id = ?4")
+    int updateTransConcById(Concept concepto, LocalDate upDateAt,String descripcion, Integer id);
 }
 

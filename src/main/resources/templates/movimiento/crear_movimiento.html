@@ -166,6 +166,21 @@
               </td>
             </tr>
 
+            <!--Campo para Fecha-->
+            <tr>
+              <td>Fecha de Creacion</td>
+              <td>
+                <input type="date" th:field="*{createdAt}"  id="date-started" readonly/>
+<!--                th:field="${movi.createdAt}"-->
+                <div class="invalid-feedback">
+                  Por favor ingrese un valor.
+                </div>
+              </td>
+            </tr>
+
+
+
+
             </tbody>
           </table>
 

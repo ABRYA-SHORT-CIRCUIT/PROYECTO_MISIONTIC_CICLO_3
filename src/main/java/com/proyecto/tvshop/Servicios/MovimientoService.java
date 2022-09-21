@@ -43,7 +43,8 @@ public class MovimientoService {
     //Actualizar información de movimiento (Monto, Concepto)
     @Transactional
     public int actualizarMovimiento(Integer id, MovimientoDinero movimiento){
-        int changes = movimientoRepositorio.updateTransConcById(movimiento.getConcepto(), LocalDate.now(), id);
+        int changes = movimientoRepositorio.updateTransConcById(movimiento.getConcepto(),
+                LocalDate.now(),movimiento.getDescripcion(), id);
         changes += movimientoRepositorio.updateTransValById(movimiento.getMonto(), id);
         return changes;
     }
