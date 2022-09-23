@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -91,7 +91,7 @@
           </li>
 
           <li class="nav-item">
-            <a class="nav-link" href="#">Link</a>
+            <a class="nav-link active"  aria-current="page" th:href="@{/users/allUsers}">Usuarios</a>
           </li>
 
           <li class="nav-item">

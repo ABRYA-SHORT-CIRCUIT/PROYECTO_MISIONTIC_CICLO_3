@@ -10,7 +10,6 @@
 
     <link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/dashboard/">
 
-    <!--    <link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">-->
     <link rel="stylesheet" th:href="@{/assets/dist/css/bootstrap.min.css}"/>
 
     <style>
@@ -70,7 +69,6 @@
 
 
     <!-- Custom styles-->
-    <!--    <link href="../css/dashboard.css" rel="stylesheet">-->
     <link rel="stylesheet" th:href="@{/css/dashboard.css}"/>
 </head>
 <body>
@@ -194,8 +192,7 @@
                     </tbody>
                 </table>
                 <button class="w-25 btn btn-secondary btn-lg" type="submit">Guardar</button>
-                <button class="w-25 btn btn-dark btn-lg" type="submit" th:href="@{/movements/allMovements}">Cancelar
-                </button>
+                <a href="javascript: history.go(-1)" class="w-25 btn btn-dark btn-lg" role="button">Cancelar</a>
             </form>
         </div>
     </main>

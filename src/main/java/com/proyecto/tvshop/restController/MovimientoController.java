@@ -120,6 +120,15 @@ public class MovimientoController {
         return "redirect:/movements/allMovements";
     }
 
+    //CONSULTAR LOS MOVIMIENTOS DE UN SOLO EMPLEADO
+    @GetMapping("movimientosUsuario/{idUsuario}")
+    public String consultarMovimientosUsuario(@PathVariable("idUsuario") Integer idUsuario, Model model){
+        List<MovimientoDinero> movList = movimientoServicio.findByUsuario(idUsuario);
+
+        model.addAttribute("movList",movList );
+
+        return "movimiento/movimientos";
+    }
 
     //Consultar todos los movimientos según la empresa
     @GetMapping("/enterprises/{id}/movements")

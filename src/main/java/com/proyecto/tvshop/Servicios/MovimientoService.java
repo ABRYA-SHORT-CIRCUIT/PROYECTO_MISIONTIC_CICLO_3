@@ -15,12 +15,13 @@ public class MovimientoService {
     @Autowired
     private MovimientoRepositorio movimientoRepositorio;
 
+    //Consultar todos los movimientos creados
     public List<MovimientoDinero> consultarAllMovimientos() {
         return movimientoRepositorio.findAll();
     }
 
 
-    //consultar todos los movimientos de dinero
+    //consultar todos los movimientos de dinero de una empresa
     public List<MovimientoDinero> consultarMovimientos(Integer idEmpresa) {
         return movimientoRepositorio.findByEmpresa(idEmpresa);
     }
@@ -29,6 +30,12 @@ public class MovimientoService {
     public MovimientoDinero consultarMovimientoId(Integer id) {
         return movimientoRepositorio.findById(id).get();
     }
+
+    //consultar todos los movimientos de dinero de un usuario
+    public List<MovimientoDinero> findByUsuario(Integer idUsuario) {
+        return movimientoRepositorio.findByUsuario(idUsuario);
+    }
+
 
     //Guardar nuevo movimiento
     public Boolean guardarMovimiento(MovimientoDinero movimiento){
