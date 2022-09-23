@@ -1,6 +1,8 @@
 package com.proyecto.tvshop.modelos;
 
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 
@@ -16,24 +18,26 @@ public class Usuario {
 
     private String correo;
 
-    @Enumerated(EnumType.STRING)
     private Roles rol;
 
-    @Enumerated(EnumType.STRING)
     private State usrState;
 
     @ManyToOne
     @JoinColumn(name = "empresa_id")
     private Empresa empresa;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate usrCreated;  //Fecha de creación del usuario
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate usrUpdated;   //Fecha de actualización del usuario
 
 
 
     //Construcctor
     public Usuario() {
+        setUsrState(State.ACTIVO);
+        this.usrCreated = LocalDate.now();
     }
 
     //Construcctor
@@ -107,5 +111,11 @@ public class Usuario {
         this.usrUpdated = LocalDate.now();
     }
 
+    public void setUsrCreated(LocalDate usrCreated) {
+        this.usrCreated = usrCreated;
+    }
 
+    public void setUsrUpdated(LocalDate usrUpdated) {
+        this.usrUpdated = usrUpdated;
+    }
 }

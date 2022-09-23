@@ -32,27 +32,19 @@
           </li>
 
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">
-              ...<span data-feather="layers" class="align-text-bottom"></span>
-              Ver movimiento
-            </a>
-          </li>
-
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">
-              ...<span data-feather="layers" class="align-text-bottom"></span>
-              Editar movimiento
-            </a>
-          </li>
-
-
-
-          <li class="nav-item">
             <a class="nav-link" th:href="@{/users/allUsers}">
               <span data-feather="users" class="align-text-bottom"></span>
               Usuarios
             </a>
           </li>
+
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" th:href="@{/users/users/agregarUsuario}">
+              ...<span data-feather="layers" class="align-text-bottom"></span>
+              Crear usuario
+            </a>
+          </li>
+
         </ul>
       </div>
     </nav>
