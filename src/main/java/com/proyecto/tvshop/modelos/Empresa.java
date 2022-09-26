@@ -14,6 +14,7 @@ public class Empresa {
     private String telefono;
     private String nit;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "estado")
     private State entState;
 

@@ -1,6 +1,8 @@
 package com.proyecto.tvshop.modelos;
 
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 
@@ -13,21 +15,29 @@ public class Usuario {
     private int id;
 
     private String nombre;
+
     private String correo;
+
     private Roles rol;
 
     private State usrState;
 
-    private LocalDate usrCreated;  //Fecha de creación del usuario
-
-    private LocalDate usrUpdated;   //Fecha de actualización del usuario
     @ManyToOne
     @JoinColumn(name = "empresa_id")
     private Empresa empresa;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate usrCreated;  //Fecha de creación del usuario
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate usrUpdated;   //Fecha de actualización del usuario
+
+
 
     //Construcctor
     public Usuario() {
+        setUsrState(State.ACTIVO);
+        this.usrCreated = LocalDate.now();
     }
 
     //Construcctor
@@ -39,6 +49,14 @@ public class Usuario {
         setUsrState(State.ACTIVO);
         this.usrCreated = LocalDate.now();
         this.usrUpdated = LocalDate.now();
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
    public String getNombre() {
@@ -62,20 +80,7 @@ public class Usuario {
     }
 
     public void setRol(Roles rol) {
-        this.rol = rol;/*
-        if (rol.equals("administrativo") || rol.equals("operativo")) {
-            this.rol = rol;
-        } else {
-            throw new RuntimeException("El rol digitado no es permitido");
-        }*/
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
+        this.rol = rol;
     }
 
     public Empresa getEmpresa() {
@@ -106,14 +111,11 @@ public class Usuario {
         this.usrUpdated = LocalDate.now();
     }
 
-    @Override
-    public String toString() {
-        return "Empleado{" +
-                "id=" + id +
-                ", nombre='" + nombre + '\'' +
-                ", correo='" + correo + '\'' +
-                ", rol='" + rol + '\'' +
-                ", empresa=" + empresa +
-                '}';
+    public void setUsrCreated(LocalDate usrCreated) {
+        this.usrCreated = usrCreated;
+    }
+
+    public void setUsrUpdated(LocalDate usrUpdated) {
+        this.usrUpdated = usrUpdated;
     }
 }

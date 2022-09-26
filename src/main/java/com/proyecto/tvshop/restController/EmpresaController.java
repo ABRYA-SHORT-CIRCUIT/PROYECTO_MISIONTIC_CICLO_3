@@ -3,21 +3,23 @@ package com.proyecto.tvshop.restController;
 import com.proyecto.tvshop.Servicios.EmpresaService;
 import com.proyecto.tvshop.modelos.Empresa;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
 
-
-@RestController
+@RequestMapping("/enterprises")
+@Controller
 public class EmpresaController {
 
     @Autowired
     private EmpresaService empresaService;
 
-    @GetMapping("/enterprises")
-    public List<Empresa> showAllEnterprises(){
-        return empresaService.listarEmpresas();
+    @GetMapping("/allEnterprises")
+    public String showAllEnterprises()
+    { List<Empresa> listaEmpresas = empresaService.listarEmpresas();
+        return "empresas";
     }
 
     @PostMapping("/enterprises")
