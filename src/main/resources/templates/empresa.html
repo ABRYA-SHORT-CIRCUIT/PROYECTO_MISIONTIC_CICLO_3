@@ -136,6 +136,9 @@
                   <td>Creada</td>
                   <td>
                     <input type="text" th:field="*{entCreated}" class="form-control" id="Creada" th:value="*{entCreated}" th:disabled="${quest.equals('VIEW') || quest.equals('EDIT')}" required>
+                    <div class="invalid-feedback">
+                      Por favor especifique la fecha de creación de la empresa.
+                    </div>
                   </td>
                 </tr>-
                 <tr>
@@ -143,7 +146,7 @@
                   <td>
                     <input type="text" th:field="*{nombre}" class="form-control" id="Nombre" placeholder="Nombre de la empresa" th:value="*{nombre}" th:disabled="${quest.equals('VIEW')}" required>
                     <div class="invalid-feedback">
-                      Por favor el nombre o razón social de la empresa.
+                      Por favor escriba el nombre o razón social de la empresa.
                     </div>
                   </td>
                 </tr>
@@ -208,5 +211,28 @@
     <script th:src="@{/assets/dist/js/bootstrap.bundle.min.js}"></script>
     <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js" integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE" crossorigin="anonymous"></script><script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js" integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha" crossorigin="anonymous"></script>
     <script th:src="@{/script/dashboard.js}"></script>
+
+    <script>
+      // JavaScript impedir el envío del formulario si hay campos inválidos
+      (function () {
+        'use strict'
+
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        var forms = document.querySelectorAll('.needs-validation')
+
+        // Loop over them and prevent submission
+        Array.prototype.slice.call(forms)
+                .forEach(function (form) {
+                  form.addEventListener('submit', function (event) {
+                    if (!form.checkValidity()) {
+                      event.preventDefault()
+                      event.stopPropagation()
+                    }
+
+                    form.classList.add('was-validated')
+                  }, false)
+                })
+      })()
+    </script>
   </body>
 </html>
