@@ -2,6 +2,7 @@ package com.proyecto.tvshop.Servicios;
 
 import com.proyecto.tvshop.Repositorios.EmpresaRepositorio;
 import com.proyecto.tvshop.modelos.Empresa;
+import com.proyecto.tvshop.modelos.State;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,8 +28,9 @@ public class EmpresaService {
     }
 
     //Crea o actualiza una empresa
-    public Empresa crearEmpresa(Empresa empresa) {
-        return empresaRepositorio.save(empresa);
+    public boolean crearEmpresa(Empresa empresa) {
+        empresa.setEntState(State.ACTIVO);
+        return (empresaRepositorio.save(empresa).getId() != 0);
     }
 
     // elimina una empresa
@@ -40,19 +42,16 @@ public class EmpresaService {
         return true;
     }
 
-    public Empresa actualizarEmpresa(Integer idEnterprise, Empresa editedEnterprise) {
+    public boolean actualizarEmpresa(Integer idEnterprise, Empresa editedEnterprise) {
         Optional<Empresa> actualEnterprise = empresaRepositorio.findById(idEnterprise);
-        if(actualEnterprise.isPresent()) {
-            Empresa updEnterprise = actualEnterprise.get();
-            updEnterprise.setNombre(editedEnterprise.getNombre());
-            updEnterprise.setDireccion(editedEnterprise.getDireccion());
-            updEnterprise.setTelefono(editedEnterprise.getTelefono());
-            updEnterprise.setNit(editedEnterprise.getNit());
-            updEnterprise.setEntState(editedEnterprise.getEntState());
-            updEnterprise.setEntUpdated(LocalDate.now());
-            return empresaRepositorio.save(updEnterprise);
+        if (actualEnterprise.isPresent()) {
+            editedEnterprise.setId(idEnterprise);
+            editedEnterprise.setEntCreated(actualEnterprise.get().getEntCreated());
+            editedEnterprise.setEntState(State.ACTIVO);
+            editedEnterprise.setEntUpdated(LocalDate.now());
+            return (empresaRepositorio.save(editedEnterprise).getId() != 0);
         }
 
-        return empresaRepositorio.save(editedEnterprise);
+        return false;
     }
 }
