@@ -39,7 +39,6 @@ public class Empresa {
     private String telefono;
 
     //@NotNull
-    @Column(name = "estado")
     private State entState;
 
     //@NotNull
