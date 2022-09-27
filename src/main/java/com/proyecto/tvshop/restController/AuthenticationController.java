@@ -12,6 +12,6 @@ public class AuthenticationController {
     @GetMapping
     public String authenticatedUser(OAuth2AuthenticationToken userToken) {
         //return userToken.getPrincipal().getAttributes(); salida tipo Object
-        return "/index";
+        return "index";
     }
 }
