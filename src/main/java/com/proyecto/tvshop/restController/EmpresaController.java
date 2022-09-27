@@ -16,6 +16,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
+//@RequestMapping("/enterprises")
+//@Controller
 
 @Controller
 public class EmpresaController {
@@ -32,13 +34,15 @@ public class EmpresaController {
 
     @GetMapping(value = "/enterprises/{id}")
     public String showEnterprise(@PathVariable("id") Integer idEnterprise, @RequestParam(required = false, value = "quest") String edit, Model model, RedirectAttributes redirect, @ModelAttribute("mensaje") String mensaje){
-        Empresa qryEnterprise = new Empresa();
+        Empresa qryEnterprise;
         String quest = QUERIES.contains(edit) ? edit : "VIEW";
 
         model.addAttribute("quest", quest);
 
+        //Si la solicitud llega con id = 0, se va a crear una nueva empresa
         if(idEnterprise == 0) {
             if(quest.equals("CREATE")) {
+                qryEnterprise = new Empresa();
                 model.addAttribute("enterprise",qryEnterprise);
                 model.addAttribute("mensaje",mensaje);
                 return "empresa";
@@ -46,15 +50,16 @@ public class EmpresaController {
                 redirect.addFlashAttribute("errorMessage", "Consulta no válida");
                 return "redirect:/enterprises";
             }
-        } else {
+        } else { //Si id es diferente de 0, se va a hacer una actualización o una eliminación
             try {
                 Optional<Empresa> fndEnterprise = empresaService.consultarEmpresa(idEnterprise);
                 qryEnterprise = fndEnterprise.get();
+                model.addAttribute("enterprise",qryEnterprise);
+                model.addAttribute("mensaje",mensaje);
             } catch (Exception e) {
                 redirect.addFlashAttribute("errorMessage", e.getMessage());
                 return "redirect:/enterprises";
             }
-            model.addAttribute("enterprise",qryEnterprise);
         }
 
         if(quest.equals("DELETE")) {
@@ -70,34 +75,18 @@ public class EmpresaController {
         return "empresa";
     }
 
+    //Si  la empresa llega con ID = 0 o inexistente, se crea una nueva, de lo contrario se actualiza
     @PostMapping("/enterprises")
-    public String addEnterprise(Empresa newEnterprise, RedirectAttributes redirectAttributes){
-        try {
-            if(newEnterprise.getId() == 0) {
-                empresaService.crearEmpresa(newEnterprise);
-            } else {
-                empresaService.actualizarEmpresa(newEnterprise.getId(), newEnterprise);
-            }
-            redirectAttributes.addFlashAttribute("message", "Empresa creada");
-        } catch (Exception e) {
-            redirectAttributes.addFlashAttribute("message", e.getMessage());
+    public String addEnterprise(@RequestParam(value = "ID") Integer id, Empresa newEnterprise, RedirectAttributes redirectAttributes){
+        String messageResponse;
+
+        if(id == 0) {
+            messageResponse = empresaService.crearEmpresa(newEnterprise)? "La empresa ha sido creada con éxito" : "La empresa no pudo ser creada";
+        } else {
+            messageResponse = empresaService.actualizarEmpresa(id, newEnterprise)? "Los cambios han sido guardados con éxito" : "Los cambios no se han podido guardar";
         }
+        redirectAttributes.addFlashAttribute("message", messageResponse);
 
         return "redirect:/enterprises";
     }
-
-
-
-//    @PatchMapping("/enterprises/{id}")
-//    public Empresa updateEnterprise(@PathVariable("id") Integer idEnterprise, @RequestBody Empresa editedEnterprise){
-//        return empresaService.actualizarEmpresa(idEnterprise, editedEnterprise);
-//    }
-
-//    @DeleteMapping("/enterprises/{id}")
-//    public String deleteEnterprise(@PathVariable("id") Integer idEnterprise){
-//        if(empresaService.eliminarEmpresa(idEnterprise)) {
-//            return "La empresa fue eliminada correctamente";
-//        }
-//        return "La empresa no fue eliminada";
-//    }
 }
