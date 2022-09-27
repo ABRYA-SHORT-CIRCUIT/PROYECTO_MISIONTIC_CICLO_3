@@ -1,5 +1,7 @@
 package com.proyecto.tvshop.modelos;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 
@@ -17,22 +19,27 @@ public class MovimientoDinero {
     @JoinColumn(name = "empleado_id")
     private Usuario usuario;
 
-//    @ManyToOne
-//    @JoinColumn(name = "empresa_id")
-//    private Empresa empresa;
+    @ManyToOne
+    @JoinColumn(name = "empresa_id")
+    private Empresa empresa;
 
-    private LocalDate movCreated;  //Fecha de creación del movimiento
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate createdAt;  //Fecha de creación del movimiento
 
-    private LocalDate movUpdated;   //Fecha de actualización del movimiento
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate upDateAt;   //Fecha de actualización del movimiento
+
     public MovimientoDinero() {
+        this.createdAt = LocalDate.now();
     }
 
-    public MovimientoDinero(long monto, Concept concepto, String descripcion, Usuario usuario) {
+    public MovimientoDinero(long monto, Concept concepto, String descripcion, Usuario usuario ) {
         this.monto = monto;
         this.concepto = concepto;
         this.descripcion = descripcion;
         this.usuario = usuario;
- //       this.empresa = usuario.getEmpresa();
+        this.empresa = usuario.getEmpresa();
+        this.createdAt = LocalDate.now();
     }
 
     public int getId() {
@@ -54,6 +61,7 @@ public class MovimientoDinero {
     public Concept getConcepto() {
         return concepto;
     }
+
     public void setConcepto(Concept concepto) {
         this.concepto = concepto;
     }
@@ -61,9 +69,11 @@ public class MovimientoDinero {
     public String getDescripcion() {
         return descripcion;
     }
+
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
+
     public Usuario getUsuario() {
         return usuario;
     }
@@ -72,25 +82,34 @@ public class MovimientoDinero {
         this.usuario = usuario;
     }
 
-//    public Empresa getEmpresa() {
-//        return empresa;
-//    }
-//
-//    public void setEmpresa(Empresa empresa) {
-//        this.empresa = empresa;
-//    }
-
-    public LocalDate getMovCreated() {
-        return movCreated;
+    public Empresa getEmpresa() {
+        return empresa;
     }
 
-    public LocalDate getMovUpdated() {
-        return movUpdated;
+    public void setEmpresa(Empresa empresa) {
+        this.empresa = empresa;
+    }
+
+    public LocalDate getCreatedAt() {
+        return createdAt;
+    }
+
+    public LocalDate getUpDateAt() {
+        return upDateAt;
     }
 
     public void setMovUpdated() {
-        this.movUpdated = LocalDate.now();
+        this.upDateAt = LocalDate.now();
     }
+
+    public void setCreatedAt(LocalDate createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public void setUpDateAt(LocalDate upDateAt) {
+        this.upDateAt = upDateAt;
+    }
+
     @Override
     public String toString() {
         return "MovimientoDinero{" +
