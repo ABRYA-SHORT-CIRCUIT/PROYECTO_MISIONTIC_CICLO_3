@@ -5,6 +5,7 @@ import com.proyecto.tvshop.modelos.Empresa;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -40,19 +41,18 @@ public class EmpresaService {
     }
 
     public Empresa actualizarEmpresa(Integer idEnterprise, Empresa editedEnterprise) {
-        Empresa updEnterprise;
         Optional<Empresa> actualEnterprise = empresaRepositorio.findById(idEnterprise);
         if(actualEnterprise.isPresent()) {
-            updEnterprise = actualEnterprise.get();
+            Empresa updEnterprise = actualEnterprise.get();
             updEnterprise.setNombre(editedEnterprise.getNombre());
             updEnterprise.setDireccion(editedEnterprise.getDireccion());
             updEnterprise.setTelefono(editedEnterprise.getTelefono());
             updEnterprise.setNit(editedEnterprise.getNit());
             updEnterprise.setEntState(editedEnterprise.getEntState());
-            updEnterprise.setEntUpdated();
-        } else {
-            updEnterprise = editedEnterprise;
+            updEnterprise.setEntUpdated(LocalDate.now());
+            return empresaRepositorio.save(updEnterprise);
         }
-        return empresaRepositorio.save(updEnterprise);
+
+        return empresaRepositorio.save(editedEnterprise);
     }
 }
