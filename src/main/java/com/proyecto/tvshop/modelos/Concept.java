@@ -1,9 +1,21 @@
 package com.proyecto.tvshop.modelos;
 
 public enum Concept {
-    COMPRA,       //Egreso por compra de mercancías
-    VENTA,        //Ingreso por venta de mercancías
-    GASTO,        //Egreso por gastos operativos
-    DEVOLUCION,   //Ingreso por devolución de mercancías a proveedor
-    REEMBOLSO     //Egreso por devolución de mercancías de clientes
+    COMPRA("Compra"),       //Egreso por compra de mercancías
+    VENTA("Venta"),        //Ingreso por venta de mercancías
+    GASTO("Gasto"),        //Egreso por gastos operativos
+    DEVOLUCION("Devolucion"),   //Ingreso por devolución de mercancías a proveedor
+    REEMBOLSO("Reembolso");     //Egreso por devolución de mercancías de clientes
+
+    private String nombre;
+
+    private Concept(String nombre){
+        this.nombre = nombre;
+    }
+
+
+    public String getNombre() {
+        return nombre;
+    }
+
 }

@@ -17,9 +17,9 @@ public class MovimientoDinero {
     @JoinColumn(name = "empleado_id")
     private Usuario usuario;
 
-    @ManyToOne
-    @JoinColumn(name = "empresa_id")
-    private Empresa empresa;
+//    @ManyToOne
+//    @JoinColumn(name = "empresa_id")
+//    private Empresa empresa;
 
     private LocalDate movCreated;  //Fecha de creación del movimiento
 
@@ -32,7 +32,7 @@ public class MovimientoDinero {
         this.concepto = concepto;
         this.descripcion = descripcion;
         this.usuario = usuario;
-        this.empresa = usuario.getEmpresa();
+ //       this.empresa = usuario.getEmpresa();
     }
 
     public int getId() {
@@ -72,13 +72,13 @@ public class MovimientoDinero {
         this.usuario = usuario;
     }
 
-    public Empresa getEmpresa() {
-        return empresa;
-    }
-
-    public void setEmpresa(Empresa empresa) {
-        this.empresa = empresa;
-    }
+//    public Empresa getEmpresa() {
+//        return empresa;
+//    }
+//
+//    public void setEmpresa(Empresa empresa) {
+//        this.empresa = empresa;
+//    }
 
     public LocalDate getMovCreated() {
         return movCreated;

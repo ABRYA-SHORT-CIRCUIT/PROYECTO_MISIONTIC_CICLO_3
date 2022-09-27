@@ -1,6 +1,8 @@
 package com.proyecto.tvshop.modelos;
 
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 
@@ -18,12 +20,14 @@ public class Usuario {
 
     private State usrState;
 
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "empresa_id")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private Empresa empresa;
+
     private LocalDate usrCreated;  //Fecha de creación del usuario
 
     private LocalDate usrUpdated;   //Fecha de actualización del usuario
-    @ManyToOne
-    @JoinColumn(name = "empresa_id")
-    private Empresa empresa;
 
 
     //Construcctor
@@ -41,10 +45,16 @@ public class Usuario {
         this.usrUpdated = LocalDate.now();
     }
 
-   public String getNombre() {
-        return nombre;
+    public int getId() {
+        return id;
+    }
+    public void setId(int id) {
+        this.id = id;
     }
 
+    public String getNombre() {
+        return nombre;
+    }
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
@@ -52,7 +62,6 @@ public class Usuario {
     public String getCorreo() {
         return correo;
     }
-
     public void setCorreo(String correo) {
         this.correo = correo;
     }
@@ -60,36 +69,14 @@ public class Usuario {
     public Roles getRol() {
         return rol;
     }
+    public void setRol(Roles rol) { this.rol = rol; }
 
-    public void setRol(Roles rol) {
-        this.rol = rol;/*
-        if (rol.equals("administrativo") || rol.equals("operativo")) {
-            this.rol = rol;
-        } else {
-            throw new RuntimeException("El rol digitado no es permitido");
-        }*/
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public Empresa getEmpresa() {
-        return empresa;
-    }
-
-    public void setEmpresa(Empresa empresa) {
-        this.empresa = empresa;
-    }
+    public Empresa getEmpresa() { return empresa; }
+    public void setEmpresa(Empresa empresa) { this.empresa = empresa; }
 
     public State getUsrState() {
         return usrState;
     }
-
     public void setUsrState(State usrState) {
         this.usrState = usrState;
     }
@@ -97,23 +84,23 @@ public class Usuario {
     public LocalDate getUsrCreated() {
         return usrCreated;
     }
+    public void setUsrCreated(LocalDate usrCreated) { this.usrCreated = usrCreated; }
 
     public LocalDate getUsrUpdated() {
         return usrUpdated;
     }
-
     public void setUsrUpdated() {
         this.usrUpdated = LocalDate.now();
     }
 
-    @Override
-    public String toString() {
-        return "Empleado{" +
-                "id=" + id +
-                ", nombre='" + nombre + '\'' +
-                ", correo='" + correo + '\'' +
-                ", rol='" + rol + '\'' +
-                ", empresa=" + empresa +
-                '}';
-    }
+//    @Override
+//    public String toString() {
+//        return "Empleado{" +
+//                "id=" + id +
+//                ", nombre='" + nombre + '\'' +
+//                ", correo='" + correo + '\'' +
+//                ", rol='" + rol + '\'' +
+//                ", empresa=" + empresa +
+//                '}';
+//    }
 }
